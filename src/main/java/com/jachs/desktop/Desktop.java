@@ -1,4 +1,5 @@
 package com.jachs.desktop;
+
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Rectangle;
@@ -11,6 +12,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.imageio.ImageIO;
+
+import com.jachs.desktop.entity.Pictrue;
 /****
  * 服務端
  * @author Jachs

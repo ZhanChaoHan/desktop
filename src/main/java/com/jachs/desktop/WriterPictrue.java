@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 import javax.swing.ImageIcon;
+
+import com.jachs.desktop.entity.Pictrue;
 /****
  * 客戶端寫入線程
  * @author Jachs
@@ -27,7 +29,6 @@ public class WriterPictrue implements Runnable{
 				ShowPictrue.img = new ImageIcon(arrayOutputStream.toByteArray());
 				
 				ShowPictrue.imgLabel.setIcon(ShowPictrue.img);
-//				ShowPictrue.imgLabel = new JLabel(ShowPictrue.img);
 				ShowPictrue.imgLabel.setBounds(0, 0, ShowPictrue.img.getIconWidth(), ShowPictrue.img.getIconHeight());
 				ShowPictrue.imgLabel.repaint();
 //				ShowPictrue.f.repaint();

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>Jim2Mov</title>
+</head>
+<body>
+<div style="text-align: center;">
+<h2>Jim2Mov</h2>
+<br>
+<div style="text-align: justify;"><a href="#description">Description</a><br>
+<a href="#license">License</a><br>
+<a href="http://sourceforge.net/project/showfiles.php?group_id=179328">Download</a><br>
+<a href="http://sourceforge.net/projects/jim2mov/">Project homepage</a><br>
+<a href="http://java.sun.com/products/java-media/jmf/">Javadocs</a><br>
+<a href="#dep">Dependencies</a><br>
+<a href="#example">Examples</a><br>
+<br>
+<h3><a name="description"></a>Description</h3>
+&nbsp;&nbsp;&nbsp; This tiny library used together with <a href="http://java.sun.com/products/java-media/jmf/">JMF</a> allows to produce movies from
+an array of images. The supported outputs are Quicktime (JPEG
+compression) and MSVideo (MJPEG compression or RAW). It allows to
+produce a movie with few lines of code!<br>
+&nbsp;&nbsp;&nbsp; For a project I was working on I needed to create a
+movie, based on images loaded into some JPanels. This wasn't the first
+time I had to do something like this, but instead of using the <a href="http://java.sun.com/products/java-media/jmf/2.1.1/solutions/JpegImagesToMovie.html">standard JMF solution</a>
+and adapt the code, I've tried to do something more generic that I
+could use easily in the future. This was why Jim2Mov was created...<br>
+<br>
+&nbsp;&nbsp;&nbsp; The class that allows you to create movies is named <a href="http://jim2mov.sourceforge.net/javadoc/org/jim2mov/core/Jim2Mov.html">Jim2Mov</a>. In order to use it, your code must implement two interfaces: <a href="http://jim2mov.sourceforge.net/javadoc/org/jim2mov/core/MovieInfoProvider.html">MovieInfoProvider</a> and <a href="http://jim2mov.sourceforge.net/javadoc/org/jim2mov/core/ImageProvider.html">ImageProvider</a>. There is also a default implementation of MovieInfoProvider, named <a href="http://jim2mov.sourceforge.net/javadoc/org/jim2mov/core/DefaultMovieInfoProvider.html">DefaultMovieInfoProvider</a>, which in most cases you will want to use. If you want to be warned when a frame is saved, implement <a href="http://jim2mov.sourceforge.net/javadoc/org/jim2mov/core/FrameSavedListener.html">FrameSavedListener</a> and register it in your Jim2Mov instance.<br>
+&nbsp;&nbsp;&nbsp; From here the creation of movies is straightforward.
+Please notice that if you are going to save a movie where your images
+are encoded as JPEG, your ImageProvider must return JPEGs. There is
+also an <a href="http://jim2mov.sourceforge.net/javadoc/org/jim2mov/utils/MovieUtils.html">utility class</a>
+that helps you in the creation of images. These can be BufferedImages
+from a JPanel (for instance), a file,&nbsp;the internet, you decide. <br>
+<h3><a name="license"></a>License</h3>
+The project is licensed under the GNU Lesser General Public License.<br>
+<br>
+<h3><a name="dep"></a>Dependencies</h3>
+You must have the latest version of the cross platform <a href="http://java.sun.com/products/java-media/jmf/">JMF</a>.<br>
+<br>
+<h3><a name="example"></a>Examples</h3>
+<a href="http://jim2mov.svn.sourceforge.net/viewvc/jim2mov/trunk/test/org/jim2mov/test/Files2MovExample.java?view=markup">Here</a> you can find a very simple example that reads an array of image files and saves it as a movie.</div>
+</div>
+</body>
+</html>

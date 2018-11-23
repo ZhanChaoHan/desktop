@@ -6,15 +6,14 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 
 import javax.imageio.ImageIO;
 
 import com.jachs.desktop.entity.Pictrue;
+
 /****
  * 服務端
  * @author Jachs
@@ -34,7 +33,7 @@ public class Desktop{
 			robot=new Robot();
 			
 			serverSocket=new ServerSocket(22222);
-			//socket= serverSocket.accept();
+			socket= serverSocket.accept();
 			System.out.println("in");
 			BufferedImage image;
 			ByteArrayOutputStream arrayOutputStream;
@@ -43,11 +42,12 @@ public class Desktop{
 			while(true){
 				image= robot.createScreenCapture(screenRectangle);
 				arrayOutputStream=new ByteArrayOutputStream();
-				ImageIO.write(image, "jpg", new File("E:\\a\\"+new Date().getTime()+".jpg"));
+//				ImageIO.write(image, "jpg", new File("E:\\a\\"+new Date().getTime()+".jpg"));
+				ImageIO.write(image, "jpg", arrayOutputStream);
 				
 				pictrue=new Pictrue(arrayOutputStream.size(),arrayOutputStream.toByteArray());
-				//objectOutputStream=new ObjectOutputStream(socket.getOutputStream());
-				//objectOutputStream.writeObject(pictrue);
+				objectOutputStream=new ObjectOutputStream(socket.getOutputStream());
+				objectOutputStream.writeObject(pictrue);
 				Thread.sleep(100);
 			}
 		} catch (Exception e) {

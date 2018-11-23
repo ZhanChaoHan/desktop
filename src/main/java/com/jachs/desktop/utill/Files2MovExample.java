@@ -67,7 +67,7 @@ public class Files2MovExample implements ImageProvider, FrameSavedListener
      */
     public static void main(String[] args)
     {
-        new Files2MovExample(new String[]{"E:\\a\\1542807119922.jpg","E:\\a\\1542807120360.jpg","E:\\a\\1542807120539.jpg","E:\\a\\1542807120744.jpg","E:\\a\\1542807124962.jpg","E:\\a\\1542807123195.jpg","E:\\a\\1542807122928.jpg","E:\\a\\1542807123590.jpg"}, MovieInfoProvider.TYPE_QUICKTIME_JPEG, "Test.mov");
+        new Files2MovExample(new String[]{"E:\\a\\1542935624465.jpg","E:\\a\\1542935625206.jpg","E:\\a\\1542935625581.jpg","E:\\a\\1542935625933.jpg","E:\\a\\1542935626329.jpg"}, MovieInfoProvider.TYPE_QUICKTIME_JPEG, "Test.mov");
     }
     
 }

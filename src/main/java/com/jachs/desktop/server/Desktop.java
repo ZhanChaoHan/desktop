@@ -12,7 +12,7 @@ import java.net.Socket;
 
 import javax.imageio.ImageIO;
 
-import com.jachs.desktop.entity.Pictrue;
+import com.jachs.desktop.entity.PictrueEntity;
 
 /****
  * 服務端屏幕
@@ -36,7 +36,7 @@ public class Desktop{
 			socket= serverSocket.accept();
 			BufferedImage image;
 			ByteArrayOutputStream arrayOutputStream;
-			Pictrue pictrue;
+			PictrueEntity pictrue;
 			ObjectOutputStream objectOutputStream;
 			while(true){
 				image= robot.createScreenCapture(screenRectangle);
@@ -44,7 +44,7 @@ public class Desktop{
 //				ImageIO.write(image, "jpg", new File("E:\\a\\"+new Date().getTime()+".jpg"));
 				ImageIO.write(image, "jpg", arrayOutputStream);
 				
-				pictrue=new Pictrue(arrayOutputStream.size(),arrayOutputStream.toByteArray());
+				pictrue=new PictrueEntity(arrayOutputStream.size(),arrayOutputStream.toByteArray());
 				objectOutputStream=new ObjectOutputStream(socket.getOutputStream());
 				objectOutputStream.writeObject(pictrue);
 				Thread.sleep(100);

@@ -10,7 +10,7 @@ import java.util.Date;
 
 import javax.swing.ImageIcon;
 
-import com.jachs.desktop.entity.Pictrue;
+import com.jachs.desktop.entity.PictrueEntity;
 
 /****
  * 客戶端寫入線程
@@ -31,7 +31,7 @@ public class WriterPictrue implements Runnable {
 
 	public void run() {
 		ObjectInputStream inputStream;
-		Pictrue pictrue;
+		PictrueEntity pictrue;
 		ByteArrayOutputStream arrayOutputStream;
 		OutputStream outputStream;
 		try {
@@ -42,7 +42,7 @@ public class WriterPictrue implements Runnable {
 			Socket socket = new Socket(serverIP, deskPort);
 			while (true && !ShowPictrue.exit) {
 				inputStream = new ObjectInputStream(socket.getInputStream());
-				pictrue = (Pictrue) inputStream.readObject();
+				pictrue = (PictrueEntity) inputStream.readObject();
 
 				arrayOutputStream = new ByteArrayOutputStream();
 				arrayOutputStream.write(pictrue.getData(), 0, pictrue.getSize());

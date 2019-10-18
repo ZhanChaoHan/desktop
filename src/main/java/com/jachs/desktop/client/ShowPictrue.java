@@ -21,7 +21,7 @@ import javax.swing.JLabel;
 import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.WriterAvi;
-import com.jachs.desktop.entity.Click;
+import com.jachs.desktop.entity.ClickEntity;
 
 /****
  * 客戶展示端
@@ -68,7 +68,7 @@ public class ShowPictrue {
 		f.setVisible(true);// 设置窗体的可见性
 		
 		f.addMouseListener(new MouseListener() {
-			Click ck=new Click();
+			ClickEntity ck=new ClickEntity();
 			
 			public void mouseEntered(MouseEvent e) {
 //				ck.setClickType(0);
@@ -115,7 +115,7 @@ public class ShowPictrue {
 			}
 		});
 		f.addMouseMotionListener(new MouseMotionListener() {
-			Click ck=new Click();
+			ClickEntity ck=new ClickEntity();
 			public void mouseMoved(MouseEvent e) {
 				ck.setClickType(5);
 				ck.setX(e.getX());

@@ -4,14 +4,14 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import com.jachs.desktop.entity.Click;
+import com.jachs.desktop.entity.ClickEntity;
 
 public class ClickScreen implements Runnable{
 	private final String serverIp;
 	private final int clickPort;
-	private Click ck;
+	private ClickEntity ck;
 	
-	public ClickScreen(String serverIp, int clickPort, Click ck) {
+	public ClickScreen(String serverIp, int clickPort, ClickEntity ck) {
 		super();
 		this.serverIp = serverIp;
 		this.clickPort = clickPort;

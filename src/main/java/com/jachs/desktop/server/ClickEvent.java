@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.jachs.desktop.entity.Click;
+import com.jachs.desktop.entity.ClickEntity;
 /*****
  * 
  * @author zhanchaohan
@@ -28,7 +28,7 @@ public class ClickEvent implements Runnable{
 			Socket socket;
 			while((socket=ss.accept())!=null) {
 				ObjectInputStream ois=new ObjectInputStream(socket.getInputStream());
-				Click click=(Click) ois.readObject();
+				ClickEntity click=(ClickEntity) ois.readObject();
 				switch (click.getClickType()) {
 //				case 0://鼠标进入
 //					break;

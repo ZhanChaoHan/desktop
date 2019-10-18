@@ -4,10 +4,17 @@ import java.io.Serializable;
 
 public class Click implements Serializable{
 	private int clickType;
+	private boolean clickOnce;
 	private int X;
 	private int Y;
 	
 	
+	public boolean isClickOnce() {
+		return clickOnce;
+	}
+	public void setClickOnce(boolean clickOnce) {
+		this.clickOnce = clickOnce;
+	}
 	public int getClickType() {
 		return clickType;
 	}

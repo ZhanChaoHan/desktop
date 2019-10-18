@@ -5,6 +5,8 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.ByteArrayOutputStream;
@@ -70,35 +72,47 @@ public class ShowPictrue {
 			Click ck=new Click();
 			
 			public void mouseEntered(MouseEvent e) {
-				ck.setClickType(0);
-				ck.setX(e.getX());
-				ck.setY(e.getY());
-				System.out.println("鼠标进入"+e.getX()+"\t\t"+e.getY());
-//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
+//				ck.setClickType(0);
+//				ck.setX(e.getX());
+//				ck.setY(e.getY());
+//				System.out.println("鼠标进入"+e.getX()+"\t\t"+e.getY());
 			}
 			public void mouseExited(MouseEvent e) {
-				ck.setClickType(1);
-				ck.setX(e.getX());
-				ck.setY(e.getY());
-				System.out.println("鼠标移出"+e.getX()+"\t\t"+e.getY());
+//				ck.setClickType(1);
+//				ck.setX(e.getX());
+//				ck.setY(e.getY());
+//				System.out.println("鼠标移出"+e.getX()+"\t\t"+e.getY());
 			}
+			
 			public void mousePressed(MouseEvent e) {
-				ck.setClickType(2);
 				ck.setX(e.getX());
 				ck.setY(e.getY());
 				System.out.println("鼠标摁下"+e.getX()+"\t\t"+e.getY());
+				if(e.getClickCount()%2==0) {//鼠标点击次数
+					ck.setClickOnce(false);
+				}else {//单击
+					ck.setClickOnce(true);
+				}
+				if(e.getModifiers()==4) {//鼠标反键点击
+					ck.setClickType(7);
+				}else {
+					ck.setClickType(2);
+				}
+//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 			public void mouseReleased(MouseEvent e) {
 				ck.setClickType(3);
 				ck.setX(e.getX());
 				ck.setY(e.getY());
 				System.out.println("鼠标释放"+e.getX()+"\t\t"+e.getY());
+//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 			public void mouseClicked(MouseEvent e) {
 				ck.setClickType(4);
 				ck.setX(e.getX());
 				ck.setY(e.getY());
 				System.out.println("鼠标点击释放位置不变触发"+"\t\t"+e.getY());
+//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 		});
 		f.addMouseMotionListener(new MouseMotionListener() {
@@ -107,8 +121,8 @@ public class ShowPictrue {
 				ck.setClickType(5);
 				ck.setX(e.getX());
 				ck.setY(e.getY());
-				System.out.println("鼠标移动"+"\t\t"+e.getY());
-				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
+//				System.out.println("鼠标移动"+"\t\t"+e.getY());
+//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 			
 			public void mouseDragged(MouseEvent e) {
@@ -116,10 +130,9 @@ public class ShowPictrue {
 				ck.setX(e.getX());
 				ck.setY(e.getY());
 				System.out.println("鼠标摁住拖拽"+"\t\t"+e.getY());
-				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
+//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 		});
 		new Thread(new WriterPictrue(IMAGEPATH,serverIp,deskPort)).start();;
-		
 	}
 }

@@ -7,6 +7,7 @@ import java.io.Serializable;
  *
  */
 public class Pictrue implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int size;
 	private byte[] data;
 	public Pictrue() {

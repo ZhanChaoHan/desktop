@@ -57,6 +57,7 @@ public class WriterPictrue implements Runnable {
 				ShowPictrue.imgLabel.repaint();
 				// ShowPictrue.f.repaint();
 			}
+			socket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

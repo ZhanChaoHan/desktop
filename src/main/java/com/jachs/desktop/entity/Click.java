@@ -3,6 +3,7 @@ package com.jachs.desktop.entity;
 import java.io.Serializable;
 
 public class Click implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int clickType;
 	private boolean clickOnce;
 	private int X;

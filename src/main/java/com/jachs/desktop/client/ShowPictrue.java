@@ -2,6 +2,8 @@ package com.jachs.desktop.client;
 
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -28,7 +30,6 @@ import com.jachs.desktop.entity.Click;
  *
  */
 public class ShowPictrue {
-
 	static Frame f = new Frame();
 	static JLabel imgLabel;
 	static ImageIcon img;
@@ -124,11 +125,22 @@ public class ShowPictrue {
 			}
 			
 			public void mouseDragged(MouseEvent e) {
-				ck.setClickType(6);
-				ck.setX(e.getX());
-				ck.setY(e.getY());
-				System.out.println("鼠标摁住拖拽"+"\t\t"+e.getY());
+//				ck.setClickType(6);
+//				ck.setX(e.getX());
+//				ck.setY(e.getY());
+//				System.out.println("鼠标摁住拖拽"+"\t\t"+e.getY());
 //				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
+			}
+		});
+		f.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+//				System.out.println("keyTyped"+e.getKeyCode());
+			}
+			public void keyPressed(KeyEvent e) {
+				System.out.println("keyPressed"+e.getKeyCode());
+			}
+			public void keyReleased(KeyEvent e) {
+				System.out.println("keyReleased"+e.getKeyCode());
 			}
 		});
 		new Thread(new WriterPictrue(IMAGEPATH,serverIp,deskPort)).start();;

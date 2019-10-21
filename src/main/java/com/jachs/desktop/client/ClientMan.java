@@ -8,6 +8,6 @@ public class ClientMan {
 		Properties pr=new Properties();
 		pr.load(ClientMan.class.getResourceAsStream("client.properties"));
 		
-		new ShowPictrue().start(pr.getProperty("serverIP"),Integer.parseInt(pr.getProperty("deskPort")),Integer.parseInt(pr.getProperty("clickPort")));
+		new ShowPictrue().start(pr.getProperty("serverIP"),Integer.parseInt(pr.getProperty("deskPort")),Integer.parseInt(pr.getProperty("clickPort")),Integer.parseInt(pr.getProperty("clickKeyPort")));
 	}
 }

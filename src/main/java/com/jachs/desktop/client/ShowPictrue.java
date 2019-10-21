@@ -14,6 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.UnknownHostException;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -22,6 +25,8 @@ import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.WriterAvi;
 import com.jachs.desktop.entity.ClickEntity;
+import com.jachs.desktop.entity.ClickKeyEntity;
+import com.jachs.desktop.server.ClickKeyEvent;
 
 /****
  * 客戶展示端
@@ -36,7 +41,7 @@ public class ShowPictrue {
 	static final String IMAGEPATH = ShowPictrue.class.getResource("").getPath() + File.separator + "image"
 			+ File.separator;
 	static boolean exit=false;
-	public  void start(final String serverIp,int deskPort,final int clickPort) throws UnknownHostException, IOException, InterruptedException {
+	public  void start(final String serverIp,int deskPort,final int clickPort,final int clickKeyPort) throws UnknownHostException, IOException, InterruptedException {
 		// 关闭窗体K
 		f.addWindowListener(new WindowAdapter() {
 			@Override
@@ -86,7 +91,7 @@ public class ShowPictrue {
 			public void mousePressed(MouseEvent e) {
 				ck.setX(e.getX());
 				ck.setY(e.getY());
-				System.out.println("鼠标摁下"+e.getX()+"\t\t"+e.getY());
+//				System.out.println("鼠标摁下"+e.getX()+"\t\t"+e.getY());
 				if(e.getClickCount()%2==0) {//鼠标点击次数
 					ck.setClickOnce(false);
 				}else {//单击
@@ -103,14 +108,14 @@ public class ShowPictrue {
 				ck.setClickType(3);
 				ck.setX(e.getX());
 				ck.setY(e.getY());
-				System.out.println("鼠标释放"+e.getX()+"\t\t"+e.getY());
+//				System.out.println("鼠标释放"+e.getX()+"\t\t"+e.getY());
 //				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 			public void mouseClicked(MouseEvent e) {
 				ck.setClickType(4);
 				ck.setX(e.getX());
 				ck.setY(e.getY());
-				System.out.println("鼠标点击释放位置不变触发"+"\t\t"+e.getY());
+//				System.out.println("鼠标点击释放位置不变触发"+"\t\t"+e.getY());
 //				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 		});
@@ -133,16 +138,37 @@ public class ShowPictrue {
 			}
 		});
 		f.addKeyListener(new KeyListener() {
+			TreeSet<Integer>keyPressed=new TreeSet<Integer>();
+			TreeSet<Integer>keyReleased=new TreeSet<Integer>();
 			public void keyTyped(KeyEvent e) {
 //				System.out.println("keyTyped"+e.getKeyCode());
 			}
 			public void keyPressed(KeyEvent e) {
-				System.out.println("keyPressed"+e.getKeyCode());
+//				System.out.println("keyPressed"+e.getKeyCode());
+				keyPressed.add(e.getKeyCode());
 			}
 			public void keyReleased(KeyEvent e) {
-				System.out.println("keyReleased"+e.getKeyCode());
+//				System.out.printl8n("keyReleased"+e.getKeyCode());
+				ClickKeyEntity clickKeyEntity=new ClickKeyEntity();
+				if(keyPressed.contains(e.getKeyCode())) {
+					keyReleased.add(e.getKeyCode());
+				}
+				if(keyPressed.size()==keyReleased.size()) {
+					new Thread(new ClickKey(serverIp,clickKeyPort,clickKeyEntity)).start();
+					for (Integer integer : keyPressed) {
+						System.out.println(integer);
+					}
+					clickKeyEntity.setClickKey(keyReleased);
+					try {
+						Thread.sleep(100);//避免删数据删早了
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+					keyPressed.clear();
+					keyReleased.clear();
+				}
 			}
 		});
-		new Thread(new WriterPictrue(IMAGEPATH,serverIp,deskPort)).start();;
+		new Thread(new WriterPictrue(IMAGEPATH,serverIp,deskPort)).start();
 	}
 }

@@ -9,6 +9,7 @@ public class ServerMan {
 		pr.load(ServerMan.class.getResourceAsStream("server.properties"));
 		
 		new Thread(new ClickEvent(Integer.parseInt(pr.getProperty("clickPort")))).start();
+		new Thread(new ClickKeyEvent(Integer.parseInt(pr.getProperty("clickKeyPort")))).start();
 		new Desktop().start(Integer.parseInt(pr.getProperty("deskPort")));
 	}
 }

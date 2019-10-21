@@ -39,7 +39,6 @@ public class ClickKeyEvent implements Runnable{
 				}else {//多键点击
 					for (Integer integer : ts) {
 						r.keyPress(integer);
-						r.delay(10);
 					}
 					for (Integer integer : ts) {
 						r.keyRelease(integer);

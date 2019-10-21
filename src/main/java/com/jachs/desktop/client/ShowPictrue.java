@@ -154,15 +154,12 @@ public class ShowPictrue {
 					keyReleased.add(e.getKeyCode());
 				}
 				if(keyPressed.size()==keyReleased.size()) {
-					new Thread(new ClickKey(serverIp,clickKeyPort,clickKeyEntity)).start();
 					for (Integer integer : keyPressed) {
 						System.out.println(integer);
 					}
 					clickKeyEntity.setClickKey(keyReleased);
-					try {
-						Thread.sleep(100);//避免删数据删早了
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
+					synchronized (this) {
+						new Thread(new ClickKey(serverIp,clickKeyPort,clickKeyEntity)).start();
 					}
 					keyPressed.clear();
 					keyReleased.clear();

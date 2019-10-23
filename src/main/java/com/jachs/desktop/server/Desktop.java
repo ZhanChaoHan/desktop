@@ -33,21 +33,22 @@ public class Desktop{
 			robot=new Robot();
 			
 			serverSocket=new ServerSocket(deskPort);
-			socket= serverSocket.accept();
 			BufferedImage image;
 			ByteArrayOutputStream arrayOutputStream;
 			PictrueEntity pictrue;
 			ObjectOutputStream objectOutputStream;
-			while(true){
-				image= robot.createScreenCapture(screenRectangle);
-				arrayOutputStream=new ByteArrayOutputStream();
-//				ImageIO.write(image, "jpg", new File("E:\\a\\"+new Date().getTime()+".jpg"));
-				ImageIO.write(image, "jpg", arrayOutputStream);
-				
-				pictrue=new PictrueEntity(arrayOutputStream.size(),arrayOutputStream.toByteArray());
-				objectOutputStream=new ObjectOutputStream(socket.getOutputStream());
-				objectOutputStream.writeObject(pictrue);
-				Thread.sleep(100);
+			while((socket=serverSocket.accept())!=null){
+				while(true) {
+					image= robot.createScreenCapture(screenRectangle);
+					arrayOutputStream=new ByteArrayOutputStream();
+	//				ImageIO.write(image, "jpg", new File("E:\\a\\"+new Date().getTime()+".jpg"));
+					ImageIO.write(image, "jpg", arrayOutputStream);
+					
+					pictrue=new PictrueEntity(arrayOutputStream.size(),arrayOutputStream.toByteArray());
+					objectOutputStream=new ObjectOutputStream(socket.getOutputStream());
+					objectOutputStream.writeObject(pictrue);
+					Thread.sleep(100);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -35,23 +35,22 @@ public class ClickEvent implements Runnable{
 //				case 1://鼠标移出进入
 //					break;
 				case 2://鼠标摁下
-					robot.mouseRelease(KeyEvent.BUTTON1_MASK);//释放鼠标左键
 					robot.mousePress(KeyEvent.BUTTON1_MASK);//摁下鼠标左键
+					robot.mouseRelease(KeyEvent.BUTTON1_MASK);//释放鼠标左键
 					break;
 				case 3://鼠标释放
 //					robot.mouseRelease(KeyEvent.BUTTON1_MASK);//释放鼠标左键
 					break;
-				case 4://鼠标点击释放位置不变
-					robot.mouseRelease(KeyEvent.BUTTON1_MASK);
-					robot.mouseRelease(InputEvent.BUTTON3_MASK);//释放鼠标右键
-					break;
+//				case 4://鼠标点击释放位置不变
+//					robot.mouseRelease(KeyEvent.BUTTON1_MASK);
+//					robot.mouseRelease(InputEvent.BUTTON3_MASK);//释放鼠标右键
+//					break;
 				case 5://鼠标移动
 					robot.mouseMove(click.getX(),click.getY());
 					break;
 //				case 6://鼠标拖拽
 //					break;
 				case 7://鼠标反键
-					robot.mouseRelease(KeyEvent.BUTTON1_MASK);//释放鼠标左键
 					robot.mousePress(InputEvent.BUTTON3_MASK);//摁下鼠标右键
 		            robot.mouseRelease(InputEvent.BUTTON3_MASK);//释放鼠标右键
 					break;

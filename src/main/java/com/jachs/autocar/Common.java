@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.InetAddress;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -129,7 +131,7 @@ public class Common {
 		return icon;
 	}
 	
-	public static void main(String[] args) throws AWTException {
+	public static void main(String[] args) throws AWTException, IOException {
 		
 	}
 }

@@ -14,19 +14,17 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.UnknownHostException;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 
 import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.WriterAvi;
 import com.jachs.desktop.entity.ClickEntity;
 import com.jachs.desktop.entity.ClickKeyEntity;
-import com.jachs.desktop.server.ClickKeyEvent;
 
 /****
  * 客戶展示端
@@ -37,6 +35,7 @@ import com.jachs.desktop.server.ClickKeyEvent;
 public class ShowPictrue {
 	static Frame f = new Frame();
 	static JLabel imgLabel;
+	static JScrollPane jScrollPane;
 	static ImageIcon img;
 	static final String IMAGEPATH = ShowPictrue.class.getResource("").getPath() + File.separator + "image"
 			+ File.separator;
@@ -99,24 +98,25 @@ public class ShowPictrue {
 				}
 				if(e.getModifiers()==4) {//鼠标反键点击
 					ck.setClickType(7);
+					System.out.println("反键");
 				}else {
 					ck.setClickType(2);
+					System.out.println("点击");
 				}
-//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
+				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 			public void mouseReleased(MouseEvent e) {
 				ck.setClickType(3);
 				ck.setX(e.getX());
 				ck.setY(e.getY());
 //				System.out.println("鼠标释放"+e.getX()+"\t\t"+e.getY());
-//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
+				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 			public void mouseClicked(MouseEvent e) {
 				ck.setClickType(4);
 				ck.setX(e.getX());
 				ck.setY(e.getY());
 //				System.out.println("鼠标点击释放位置不变触发"+"\t\t"+e.getY());
-//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 		});
 		f.addMouseMotionListener(new MouseMotionListener() {
@@ -126,7 +126,7 @@ public class ShowPictrue {
 				ck.setX(e.getX());
 				ck.setY(e.getY());
 //				System.out.println("鼠标移动"+"\t\t"+e.getY());
-//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
+				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 			
 			public void mouseDragged(MouseEvent e) {
@@ -134,7 +134,6 @@ public class ShowPictrue {
 //				ck.setX(e.getX());
 //				ck.setY(e.getY());
 //				System.out.println("鼠标摁住拖拽"+"\t\t"+e.getY());
-//				new Thread(new ClickScreen(serverIp,clickPort,ck)).start();
 			}
 		});
 		f.addKeyListener(new KeyListener() {
@@ -148,7 +147,6 @@ public class ShowPictrue {
 				keyPressed.add(e.getKeyCode());
 			}
 			public void keyReleased(KeyEvent e) {
-//				System.out.printl8n("keyReleased"+e.getKeyCode());
 				ClickKeyEntity clickKeyEntity=new ClickKeyEntity();
 				if(keyPressed.contains(e.getKeyCode())) {
 					keyReleased.add(e.getKeyCode());
@@ -157,12 +155,16 @@ public class ShowPictrue {
 					for (Integer integer : keyPressed) {
 						System.out.println(integer);
 					}
-					clickKeyEntity.setClickKey(keyReleased);
-					synchronized (this) {
-						new Thread(new ClickKey(serverIp,clickKeyPort,clickKeyEntity)).start();
+					if(keyReleased.size()>0) {
+						clickKeyEntity.setClickKey(keyReleased);
+						
+						Thread ck= new Thread(new ClickKey(serverIp,clickKeyPort,clickKeyEntity));
+						ck.run();
+						if(!ck.isAlive()) {
+							keyPressed.clear();
+							keyReleased.clear();
+						}
 					}
-					keyPressed.clear();
-					keyReleased.clear();
 				}
 			}
 		});

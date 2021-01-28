@@ -8,7 +8,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.UnknownHostException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -26,8 +25,8 @@ import com.jachs.desktop.thread.WriterPictrueThread;
  */
 public class ClientWindow extends InitProperties {
     static Frame f = new Frame ();
-    static JLabel imgLabel;
-    static ImageIcon img;
+    public static JLabel imgLabel;
+    public static ImageIcon img;
     static final String IMAGEPATH = ClientWindow.class.getResource ( "" ).getPath () + File.separator + "image"
             + File.separator;
     static boolean exit = false;
@@ -63,7 +62,7 @@ public class ClientWindow extends InitProperties {
         f.add ( imgLabel );
         f.setVisible ( true );// 设置窗体的可见性
 
-        Thread WriterPictrueThread = new Thread ( new WriterPictrueThread ( IMAGEPATH ) );
+        Thread WriterPictrueThread = new Thread ( new WriterPictrueThread ( IMAGEPATH,sp.getIp (),sp.getPort () ) );
 
         WriterPictrueThread.start ();
     }

@@ -21,13 +21,18 @@ import com.jachs.desktop.entity.Pictrue;
  */
 public class WriterPictrueThread implements Runnable {
 	private String IMAGEPATH;
+	private String siP;
+	private int sPort;
+	
 
-	public WriterPictrueThread(String iMAGEPATH) {
-		super();
-		IMAGEPATH = iMAGEPATH;
-	}
+	public WriterPictrueThread ( String iMAGEPATH, String siP, int sPort ) {
+        super ();
+        IMAGEPATH = iMAGEPATH;
+        this.siP = siP;
+        this.sPort = sPort;
+    }
 
-	public void run() {
+    public void run() {
 		ObjectInputStream inputStream;
 		Pictrue pictrue;
 		ByteArrayOutputStream arrayOutputStream;
@@ -37,8 +42,8 @@ public class WriterPictrueThread implements Runnable {
 			if (!files.exists()) {
 				files.mkdirs();
 			}
-			Socket socket = new Socket("127.0.0.1", 22222);
-			while (true && !ClientWindow.exit) {
+			Socket socket = new Socket(siP, sPort);
+			while (true) {
 				inputStream = new ObjectInputStream(socket.getInputStream());
 				pictrue = (Pictrue) inputStream.readObject();
 

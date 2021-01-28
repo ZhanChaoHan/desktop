@@ -12,6 +12,7 @@ import java.net.Socket;
 
 import javax.imageio.ImageIO;
 
+import com.jachs.desktop.configer.InitProperties;
 import com.jachs.desktop.entity.Pictrue;
 
 /****
@@ -19,7 +20,7 @@ import com.jachs.desktop.entity.Pictrue;
  * @author Jachs
  *
  */
-public class Desktop{
+public class ServerWindow extends InitProperties{
 	
 	public static void main(String[] args) {
 		Dimension screenSize;

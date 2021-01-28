@@ -37,7 +37,7 @@ public class WriterPictrue implements Runnable {
 				files.mkdirs();
 			}
 			Socket socket = new Socket("127.0.0.1", 22222);
-			while (true && !ShowPictrue.exit) {
+			while (true && !ClientWindow.exit) {
 				inputStream = new ObjectInputStream(socket.getInputStream());
 				pictrue = (Pictrue) inputStream.readObject();
 
@@ -47,12 +47,12 @@ public class WriterPictrue implements Runnable {
 				outputStream = new FileOutputStream(new File(this.IMAGEPATH + new Date().getTime() + ".jpg"));
 				outputStream.write(arrayOutputStream.toByteArray());
 
-				ShowPictrue.img = new ImageIcon(arrayOutputStream.toByteArray());
+				ClientWindow.img = new ImageIcon(arrayOutputStream.toByteArray());
 
-				ShowPictrue.imgLabel.setIcon(ShowPictrue.img);
-				ShowPictrue.imgLabel.setBounds(0, 0, ShowPictrue.img.getIconWidth(), ShowPictrue.img.getIconHeight());
-				ShowPictrue.imgLabel.repaint();
-				// ShowPictrue.f.repaint();
+				ClientWindow.imgLabel.setIcon(ClientWindow.img);
+				ClientWindow.imgLabel.setBounds(0, 0, ClientWindow.img.getIconWidth(), ClientWindow.img.getIconHeight());
+				ClientWindow.imgLabel.repaint();
+				// ClientWindow.f.repaint();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

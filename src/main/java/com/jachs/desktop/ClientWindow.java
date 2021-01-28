@@ -15,18 +15,20 @@ import javax.swing.JLabel;
 
 import org.apache.commons.io.IOUtils;
 
+import com.jachs.desktop.configer.InitProperties;
+
 /****
  * 客戶展示端
  * 
  * @author Jachs
  *
  */
-public class ShowPictrue {
+public class ClientWindow extends InitProperties{
 
 	static Frame f = new Frame();
 	static JLabel imgLabel;
 	static ImageIcon img;
-	static final String IMAGEPATH = ShowPictrue.class.getResource("").getPath() + File.separator + "image"
+	static final String IMAGEPATH = ClientWindow.class.getResource("").getPath() + File.separator + "image"
 			+ File.separator;
 	static boolean exit=false;
 	public static void main(String[] args) throws UnknownHostException, IOException, InterruptedException {
@@ -49,7 +51,7 @@ public class ShowPictrue {
 						+ File.separator + "java" + File.separator + "image" + File.separator + "ico.png"));// 设置图标
 		// f.setResizable(false);// 禁止窗体改变尺寸
 
-		InputStream is = ShowPictrue.class.getResourceAsStream("/image/backgroundDefault.png");
+		InputStream is = ClientWindow.class.getResourceAsStream("/image/backgroundDefault.png");
 		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
 		IOUtils.copy(is, arrayOutputStream);
 		img = new ImageIcon(arrayOutputStream.toByteArray());

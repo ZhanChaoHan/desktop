@@ -1,4 +1,4 @@
-package com.jachs.desktop;
+package com.jachs.desktop.thread;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -10,6 +10,7 @@ import java.util.Date;
 
 import javax.swing.ImageIcon;
 
+import com.jachs.desktop.ClientWindow;
 import com.jachs.desktop.entity.Pictrue;
 
 /****
@@ -18,10 +19,10 @@ import com.jachs.desktop.entity.Pictrue;
  * @author Jachs
  *
  */
-public class WriterPictrue implements Runnable {
+public class WriterPictrueThread implements Runnable {
 	private String IMAGEPATH;
 
-	public WriterPictrue(String iMAGEPATH) {
+	public WriterPictrueThread(String iMAGEPATH) {
 		super();
 		IMAGEPATH = iMAGEPATH;
 	}

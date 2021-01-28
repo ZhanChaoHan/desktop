@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.configer.InitProperties;
+import com.jachs.desktop.thread.WriterPictrueThread;
 
 /****
  * 客戶展示端
@@ -62,7 +63,7 @@ public class ClientWindow extends InitProperties {
         f.add ( imgLabel );
         f.setVisible ( true );// 设置窗体的可见性
 
-        Thread WriterPictrueThread = new Thread ( new WriterPictrue ( IMAGEPATH ) );
+        Thread WriterPictrueThread = new Thread ( new WriterPictrueThread ( IMAGEPATH ) );
 
         WriterPictrueThread.start ();
     }

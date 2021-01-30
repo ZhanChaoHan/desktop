@@ -75,21 +75,7 @@ public class PicToAviUtil {
 		} catch (MovieSaveException e) {
 			System.err.println(e);
 		}
-		File files = new File(jpgDirPath);
-		if (files.isDirectory()) {
-			deleteDir(files);
-		}
 		System.exit(0);
 		System.out.println("create avi success.");
-	}
-	private static void deleteDir(File dir) {
-		if (dir.isDirectory()) {
-			String[] children = dir.list();
-			for (int i = 0; i < children.length; i++) {
-				deleteDir(new File(dir, children[i]));
-			}
-		} else {
-			dir.delete();
-		}
 	}
 }

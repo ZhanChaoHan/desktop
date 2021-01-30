@@ -12,6 +12,7 @@ import java.io.InputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.configer.InitProperties;
@@ -34,11 +35,16 @@ public class ClientWindow extends InitProperties {
         // 关闭窗体K
         f.addWindowListener ( new WindowAdapter () {
             @Override
-            public void windowClosing ( WindowEvent e ) {
+            public void windowClosing ( WindowEvent e ) {//窗体关闭监听事件
                 exit = true;
                 f.setVisible ( false );// 设置窗体的可见性
                 Thread WriterAviThread = new Thread ( new WriterAvi ( StaticConfigure.CLIENTIMAGEPATH ) );
-                WriterAviThread.start ();
+                WriterAviThread.start ();//将图片写入为视屏文件
+                try {
+					FileUtils.deleteDirectory(new File(StaticConfigure.CLIENTIMAGEPATH));//删除图片素材
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
             }
         } );
         f.setTitle ( "抓取桌面" );// 添加标题

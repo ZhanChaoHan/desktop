@@ -45,7 +45,6 @@ public class ServerWindow extends InitProperties {
             while ( true ) {
                 image = robot.createScreenCapture ( screenRectangle );
                 arrayOutputStream = new ByteArrayOutputStream ();
-                //              ImageIO.write(image, "jpg", new File("E:\\a\\"+new Date().getTime()+".jpg"));
                 ImageIO.write ( image, "jpg", arrayOutputStream );
 
                 pictrue = new Pictrue ( arrayOutputStream.size (), arrayOutputStream.toByteArray () );

@@ -22,7 +22,6 @@ public abstract class InitProperties implements InitPropertiesInterFace{
             
             sp.setPort ( Integer.parseInt (pro.getProperty ( "server.init.port" )) );
             
-            cp.setPort(Integer.parseInt (pro.getProperty ( "client.init.port" )));
             cp.setHigh ( Integer.parseInt (pro.getProperty ( "client.window.high" )) );
             cp.setWidth ( Integer.parseInt (pro.getProperty ( "client.window.width" )) );
             cp.setX ( Integer.parseInt (pro.getProperty ( "clent.init.position.x" )) );

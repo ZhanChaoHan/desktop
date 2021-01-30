@@ -10,6 +10,8 @@ import org.jim2mov.core.MovieInfoProvider;
 import org.jim2mov.core.MovieSaveException;
 import org.jim2mov.utils.MovieUtils;
 
+import com.jachs.desktop.ClientWindow;
+
 /**
  *
  * @author andre
@@ -56,7 +58,9 @@ public class Files2MovExample implements ImageProvider, FrameSavedListener {
      * @param args the command line arguments
      */
     public static void main ( String[] args ) {
-        new Files2MovExample ( args, MovieInfoProvider.TYPE_QUICKTIME_JPEG, "Test.mov" );
+//        new Files2MovExample ( args, MovieInfoProvider.TYPE_QUICKTIME_JPEG, "Test.mov" );
+    	 String IMAGEPATH=ClientWindow.class.getResource("").getPath()+File.separator+"img";//
+    	 
     }
 
 }

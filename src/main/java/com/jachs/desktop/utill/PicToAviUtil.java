@@ -15,7 +15,7 @@ import org.jim2mov.utils.MovieUtils;
 /**
  * 图片与视频转换工具类
  *
- * @author Jachs
+ * @author zhanchaohan
  */
 public class PicToAviUtil {
 
@@ -91,20 +91,5 @@ public class PicToAviUtil {
 		} else {
 			dir.delete();
 		}
-	}
-	/**
-	 * main
-	 * 
-	 * @param args
-	 * @throws Exception
-	 */
-	public static void main(String[] args) throws Exception {
-//		String jpgDirPath = "F:\\迅雷下载\\img"; // jpg文件夹路径
-//		String aviFileName = "test.avi"; // 生成的avi视频文件名（生成路径为本工程）
-//		int fps = 3; // 每秒播放的帧数
-//		int mWidth = 1440; // 视频的宽度
-//		int mHeight = 860; // 视频的高度
-//		PicToAviUtil.convertPicToAvi(jpgDirPath, aviFileName, fps, mWidth, mHeight);
-//		deleteDir(new File("F:\\%e8%bf%85%e9%9b%b7%e4%b8%8b%e8%bd%bd\\desktop\\target\\classes\\com\\jachs\\desktop\\image"));
 	}
 }

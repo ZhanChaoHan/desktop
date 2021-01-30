@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.configer.InitProperties;
+import com.jachs.desktop.configer.StaticConfigure;
 import com.jachs.desktop.thread.WriterPictrueThread;
 
 /****
@@ -27,8 +28,6 @@ public class ClientWindow extends InitProperties {
     static Frame f = new Frame ();
     public static JLabel imgLabel;
     public static ImageIcon img;
-    static final String IMAGEPATH = ClientWindow.class.getResource ( "" ).getPath () + File.separator + "image"
-            + File.separator;
     static boolean exit = false;
 
     public void start () throws IOException {
@@ -38,7 +37,7 @@ public class ClientWindow extends InitProperties {
             public void windowClosing ( WindowEvent e ) {
                 exit = true;
                 f.setVisible ( false );// 设置窗体的可见性
-                Thread WriterAviThread = new Thread ( new WriterAvi ( IMAGEPATH ) );
+                Thread WriterAviThread = new Thread ( new WriterAvi ( StaticConfigure.CLIENTIMAGEPATH ) );
                 WriterAviThread.start ();
             }
         } );
@@ -62,7 +61,7 @@ public class ClientWindow extends InitProperties {
         f.add ( imgLabel );
         f.setVisible ( true );// 设置窗体的可见性
 
-        Thread WriterPictrueThread = new Thread ( new WriterPictrueThread ( IMAGEPATH,sp.getIp (),sp.getPort () ) );
+        Thread WriterPictrueThread = new Thread ( new WriterPictrueThread (sp.getIp (),sp.getPort () ) );
 
         WriterPictrueThread.start ();
     }

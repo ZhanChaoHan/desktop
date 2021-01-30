@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 
 import com.jachs.desktop.ClientWindow;
+import com.jachs.desktop.configer.StaticConfigure;
 import com.jachs.desktop.entity.Pictrue;
 
 /****
@@ -20,14 +21,12 @@ import com.jachs.desktop.entity.Pictrue;
  *
  */
 public class WriterPictrueThread implements Runnable {
-	private String IMAGEPATH;
 	private String siP;
 	private int sPort;
 	
 
-	public WriterPictrueThread ( String iMAGEPATH, String siP, int sPort ) {
+	public WriterPictrueThread (String siP, int sPort ) {
         super ();
-        IMAGEPATH = iMAGEPATH;
         this.siP = siP;
         this.sPort = sPort;
     }
@@ -38,7 +37,7 @@ public class WriterPictrueThread implements Runnable {
 		ByteArrayOutputStream arrayOutputStream;
 		OutputStream outputStream;
 		try {
-			File files = new File(this.IMAGEPATH);
+			File files = new File(StaticConfigure.CLIENTIMAGEPATH);
 			if (!files.exists()) {
 				files.mkdirs();
 			}
@@ -50,9 +49,9 @@ public class WriterPictrueThread implements Runnable {
 				arrayOutputStream = new ByteArrayOutputStream();
 				arrayOutputStream.write(pictrue.getData(), 0, pictrue.getSize());
 
-				outputStream = new FileOutputStream(new File(this.IMAGEPATH + new Date().getTime() + ".jpg"));
+				outputStream = new FileOutputStream(new File(StaticConfigure.CLIENTIMAGEPATH+File.separator+ new Date().getTime() + ".jpg"));
 				outputStream.write(arrayOutputStream.toByteArray());
-
+				outputStream.close();
 				ClientWindow.img = new ImageIcon(arrayOutputStream.toByteArray());
 
 				ClientWindow.imgLabel.setIcon(ClientWindow.img);

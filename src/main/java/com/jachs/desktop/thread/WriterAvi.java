@@ -16,16 +16,9 @@ import com.jachs.desktop.utill.PicToAviUtil;
  *
  */
 public class WriterAvi implements Runnable {
-	private String IMAGEPATH;
-
-	public WriterAvi(String iMAGEPATH) {
-		super();
-		IMAGEPATH = iMAGEPATH;
-	}
-
 	public void run() {
 		try {
-			PicToAviUtil.convertPicToAvi(IMAGEPATH, "demo.avi", 3, 1440, 860);
+			PicToAviUtil.convertPicToAvi(StaticConfigure.CLIENTIMAGEPATH, "demo.avi", 3, 1440, 860);
 			try {
 				FileUtils.deleteDirectory(new File(StaticConfigure.CLIENTIMAGEPATH));//删除图片素材
 			} catch (IOException e) {

@@ -39,7 +39,7 @@ public class ClientWindow extends InitProperties {
             public void windowClosing ( WindowEvent e ) {//窗体关闭监听事件
                 exit = true;
                 f.setVisible ( false );// 设置窗体的可见性
-                Thread WriterAviThread = new Thread ( new WriterAvi ( StaticConfigure.CLIENTIMAGEPATH ) );
+                Thread WriterAviThread = new Thread ( new WriterAvi () );
                 WriterAviThread.start ();//将图片写入为视屏文件
             }
         } );

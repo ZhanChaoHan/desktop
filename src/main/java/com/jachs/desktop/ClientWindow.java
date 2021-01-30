@@ -17,6 +17,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.configer.InitProperties;
 import com.jachs.desktop.configer.StaticConfigure;
+import com.jachs.desktop.thread.WriterAvi;
 import com.jachs.desktop.thread.WriterPictrueThread;
 
 /****
@@ -40,11 +41,6 @@ public class ClientWindow extends InitProperties {
                 f.setVisible ( false );// 设置窗体的可见性
                 Thread WriterAviThread = new Thread ( new WriterAvi ( StaticConfigure.CLIENTIMAGEPATH ) );
                 WriterAviThread.start ();//将图片写入为视屏文件
-                try {
-					FileUtils.deleteDirectory(new File(StaticConfigure.CLIENTIMAGEPATH));//删除图片素材
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
             }
         } );
         f.setTitle ( "抓取桌面" );// 添加标题

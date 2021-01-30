@@ -15,7 +15,7 @@ import com.jachs.desktop.configer.StaticConfigure;
 import com.jachs.desktop.entity.Pictrue;
 
 /****
- * 客戶端寫入線程
+ * 客戶端图片寫入線程
  * 
  * @author Jachs
  *

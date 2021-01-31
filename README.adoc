@@ -23,6 +23,9 @@ clent.init.position.y=20
 * 目标机 java -jar desktop-0.0.1.jar server
 * 监控机 java -jar desktop-0.0.1.jar client
 
+== matters needing attention
+*关闭程序如果是命令行启动不要直接切命令行请关闭窗体不然抓取不到窗体关闭事件无法生成视屏流
+
 == Getting help
 * 主函数:com.jachs.desktop.Main
 * 服务器入口:com.jachs.desktop.ServerWindow

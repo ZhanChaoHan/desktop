@@ -12,11 +12,12 @@ import java.io.InputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.configer.InitProperties;
-import com.jachs.desktop.configer.StaticConfigure;
+import com.jachs.desktop.event.MyKeyBoardEvent;
+import com.jachs.desktop.event.MyMouseEvent;
+import com.jachs.desktop.event.MyMouseMotionEvent;
 import com.jachs.desktop.thread.WriterAvi;
 import com.jachs.desktop.thread.WriterPictrueThread;
 
@@ -43,6 +44,10 @@ public class ClientWindow extends InitProperties {
                 WriterAviThread.start ();//将图片写入为视屏文件
             }
         } );
+        f.addMouseListener(new MyMouseEvent());//添加鼠标事件监听
+        f.addKeyListener(new MyKeyBoardEvent());//添加键盘事件监听
+        f.addMouseMotionListener(new MyMouseMotionEvent());//添加鼠标移动拖动事件监听
+        
         f.setTitle ( "抓取桌面" );// 添加标题
         f.setSize ( cp.getHigh (), cp.getHigh () );// 设置窗体的尺寸
         f.setLocation ( cp.getX (), cp.getY () );// 设置窗体出现坐标

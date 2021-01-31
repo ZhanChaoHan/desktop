@@ -2,7 +2,6 @@ package com.jachs.desktop.configer;
 
 import java.io.File;
 
-import com.jachs.desktop.ClientWindow;
 
 /****
  * 

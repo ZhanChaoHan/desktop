@@ -3,8 +3,8 @@ package com.jachs.desktop.configer;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.jachs.desktop.entity.ClientPo;
-import com.jachs.desktop.entity.ServerPo;
+import com.jachs.desktop.entity.po.ClientPo;
+import com.jachs.desktop.entity.po.ServerPo;
 
 /**
  * @author zhanchaohan

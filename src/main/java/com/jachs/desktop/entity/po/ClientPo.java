@@ -1,4 +1,4 @@
-package com.jachs.desktop.entity;
+package com.jachs.desktop.entity.po;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

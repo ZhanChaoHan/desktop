@@ -1,0 +1,35 @@
+= How do you use it?
+
+目前仅在windows开发并测试:
+
+* 被监测机器默认启动Server,窗体程序无
+* 监测机器启动Client,一个简单Frame窗体
+
+== Installation and Getting Started
+第一步修改配置文件application.properties,指定ServerIp以及端口
+[source,java,indent=0]
+----
+server.init.ip=127.0.0.1
+server.init.port=2345
+
+client.window.high=800
+client.window.width=800
+
+clent.init.position.x=10
+clent.init.position.y=20
+
+----
+== 启动程序
+目标机 java -jar desktop-0.0.1.jar server
+监控机 java -jar desktop-0.0.1.jar client
+
+== Getting help
+主函数:com.jachs.desktop.Main
+服务器入口:com.jachs.desktop.ServerWindow
+客户端入口:com.jachs.desktop.ClientWindow
+
+== Reporting Issues
+not yet
+
+== Samples
+看test测试

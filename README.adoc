@@ -20,13 +20,13 @@ clent.init.position.y=20
 
 ----
 == 启动程序
-目标机 java -jar desktop-0.0.1.jar server
-监控机 java -jar desktop-0.0.1.jar client
+* 目标机 java -jar desktop-0.0.1.jar server
+* 监控机 java -jar desktop-0.0.1.jar client
 
 == Getting help
-主函数:com.jachs.desktop.Main
-服务器入口:com.jachs.desktop.ServerWindow
-客户端入口:com.jachs.desktop.ClientWindow
+* 主函数:com.jachs.desktop.Main
+* 服务器入口:com.jachs.desktop.ServerWindow
+* 客户端入口:com.jachs.desktop.ClientWindow
 
 == Reporting Issues
 not yet

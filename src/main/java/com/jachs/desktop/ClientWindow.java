@@ -8,17 +8,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import org.apache.commons.io.IOUtils;
 
-import com.jachs.desktop.configer.InitProperties;
+import com.jachs.desktop.configer.InitPropertiesInterFace;
+import com.jachs.desktop.entity.po.ClientPo;
 import com.jachs.desktop.event.MyKeyBoardEvent;
 import com.jachs.desktop.event.MyMouseEvent;
 import com.jachs.desktop.event.MyMouseMotionEvent;
-import com.jachs.desktop.thread.WriterAvi;
+import com.jachs.desktop.thread.WriterAviThread;
 import com.jachs.desktop.thread.WriterPictrueThread;
 
 /****
@@ -27,11 +29,26 @@ import com.jachs.desktop.thread.WriterPictrueThread;
  * @author Jachs
  *
  */
-public class ClientWindow extends InitProperties {
+public class ClientWindow implements InitPropertiesInterFace {
+    private Properties pro=new Properties ();
+    private ClientPo cp=new ClientPo();
+    
     static Frame f = new Frame ();
     public static JLabel imgLabel;
     public static ImageIcon img;
     static boolean exit = false;
+
+    public void init () throws IOException {
+        pro.load ( ServerWindow.class.getResourceAsStream ( "/client.properties" ) );
+        
+        cp.setServerHost ( pro.getProperty ( "server.start.ip" ));
+        cp.setPort ( Integer.parseInt ( pro.getProperty ( "server.start.port" ) ) );
+        
+        cp.setHigh ( Integer.parseInt (pro.getProperty ( "client.window.high" )) );
+        cp.setWidth ( Integer.parseInt (pro.getProperty ( "client.window.width" )) );
+        cp.setX ( Integer.parseInt (pro.getProperty ( "clent.init.position.x" )) );
+        cp.setY ( Integer.parseInt (pro.getProperty ( "clent.init.position.y" )) );
+    }
 
     public void start () throws IOException {
         // 关闭窗体K
@@ -40,14 +57,14 @@ public class ClientWindow extends InitProperties {
             public void windowClosing ( WindowEvent e ) {//窗体关闭监听事件
                 exit = true;
                 f.setVisible ( false );// 设置窗体的可见性
-                Thread WriterAviThread = new Thread ( new WriterAvi () );
+                Thread WriterAviThread = new Thread ( new WriterAviThread () );
                 WriterAviThread.start ();//将图片写入为视屏文件
             }
         } );
-        f.addMouseListener(new MyMouseEvent());//添加鼠标事件监听
-        f.addKeyListener(new MyKeyBoardEvent());//添加键盘事件监听
-        f.addMouseMotionListener(new MyMouseMotionEvent());//添加鼠标移动拖动事件监听
-        
+        f.addMouseListener ( new MyMouseEvent () );//添加鼠标事件监听
+        f.addKeyListener ( new MyKeyBoardEvent () );//添加键盘事件监听
+        f.addMouseMotionListener ( new MyMouseMotionEvent () );//添加鼠标移动拖动事件监听
+
         f.setTitle ( "抓取桌面" );// 添加标题
         f.setSize ( cp.getHigh (), cp.getHigh () );// 设置窗体的尺寸
         f.setLocation ( cp.getX (), cp.getY () );// 设置窗体出现坐标
@@ -68,8 +85,9 @@ public class ClientWindow extends InitProperties {
         f.add ( imgLabel );
         f.setVisible ( true );// 设置窗体的可见性
 
-        Thread WriterPictrueThread = new Thread ( new WriterPictrueThread (sp.getIp (),sp.getPort () ) );
+        Thread WriterPictrueThread = new Thread ( new WriterPictrueThread ( cp.getServerHost (), cp.getPort ()) );
 
         WriterPictrueThread.start ();
     }
+
 }

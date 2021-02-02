@@ -20,5 +20,12 @@ public class PrintIp {
         for ( String ip : ipList ) {
             System.out.println (ip );
         }
+        System.out.println ( "--------------------------------" );
+        
+        List<String> locaipList=lanIpGetUtill.getLocalIPList ();
+        
+        for ( String string : locaipList ) {
+            System.out.println (string  );
+        }
     }
 }

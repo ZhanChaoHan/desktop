@@ -12,10 +12,10 @@ import com.jachs.desktop.utill.PicToAviUtil;
 /****
  * 客戶端写入视频线程
  * 
- * @author Jachs
+ * @author zhanchaohan
  *
  */
-public class WriterAvi implements Runnable {
+public class WriterAviThread implements Runnable {
 	public void run() {
 		try {
 			PicToAviUtil.convertPicToAvi(StaticConfigure.CLIENTIMAGEPATH, "demo.avi", 3, 1440, 860);

@@ -10,11 +10,15 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
+import java.util.Properties;
 
 import javax.imageio.ImageIO;
 
-import com.jachs.desktop.configer.InitProperties;
+import com.jachs.desktop.configer.InitPropertiesInterFace;
 import com.jachs.desktop.entity.Pictrue;
+import com.jachs.desktop.entity.po.ServerPo;
+import com.jachs.desktop.utill.LanIpGetUtill;
 
 /****
  * 服務端
@@ -22,10 +26,21 @@ import com.jachs.desktop.entity.Pictrue;
  * @author zhanchaohan
  *
  */
-public class ServerWindow extends InitProperties {
+public class ServerWindow implements InitPropertiesInterFace {
+    private Properties pro=new Properties ();
+    private LanIpGetUtill lanIpGetUtill=new LanIpGetUtill();
+    private ServerPo sp=new ServerPo();
+    
+    public void init () throws IOException {
+        pro.load ( ServerWindow.class.getResourceAsStream ( "/server.properties" ) );
+        
+        List<String>ipList= lanIpGetUtill.getLocalIPList ();
+        
+        sp.setIp ( ipList.get ( 1) );//字段绑定本机Ip
+        sp.setPort ( Integer.parseInt (pro.getProperty ( "server.start.port" )));
+    }
 
-    @Override
-    public void start () throws IOException {
+    public void start () {
         Dimension screenSize;
         Rectangle screenRectangle;
         ServerSocket serverSocket;
@@ -59,4 +74,5 @@ public class ServerWindow extends InitProperties {
         finally {
         }
     }
+
 }

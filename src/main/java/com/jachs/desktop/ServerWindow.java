@@ -19,7 +19,7 @@ import com.jachs.desktop.entity.Pictrue;
 /****
  * 服務端
  * 
- * @author Jachs
+ * @author zhanchaohan
  *
  */
 public class ServerWindow extends InitProperties {

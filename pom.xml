@@ -14,7 +14,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
+	<developers>
+		<developer>
+			<name>詹超涵</name>
+			<url>https://github.com/zhanchaohan/</url>
+			<email>799516423@qq.com</email>
+		</developer>
+	</developers>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>

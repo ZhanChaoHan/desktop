@@ -75,7 +75,7 @@ public class PicToAviUtil {
 		} catch (MovieSaveException e) {
 			System.err.println(e);
 		}
-		System.exit(0);
+//		System.exit(0);
 		System.out.println("create avi success.");
 	}
 }

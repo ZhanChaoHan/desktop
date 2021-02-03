@@ -2,6 +2,7 @@ package com.jachs.desktop.event;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.ObjectOutputStream;
 
 /***
  * 
@@ -11,6 +12,8 @@ import java.awt.event.KeyListener;
 public class ClientKeyBoardEvent implements KeyListener,Runnable{
 	private String siP;
 	private int sPort;
+	
+	ObjectOutputStream oos;
 	
 	public ClientKeyBoardEvent() {
 		super();

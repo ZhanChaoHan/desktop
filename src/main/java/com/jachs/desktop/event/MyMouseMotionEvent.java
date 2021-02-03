@@ -8,7 +8,8 @@ import java.awt.event.MouseMotionListener;
  * @author zhanchaohan
  *
  */
-public class MyMouseMotionEvent implements MouseMotionListener{
+public class MyMouseMotionEvent implements MouseMotionListener,Runnable{
+	
 	//鼠标拖动事件
 	public void mouseDragged(MouseEvent e) {
 		System.out.println(e.getID()+"鼠标拖动事件");
@@ -16,6 +17,9 @@ public class MyMouseMotionEvent implements MouseMotionListener{
 	//鼠标移动事件
 	public void mouseMoved(MouseEvent e) {
 		System.out.println(e.getID()+"鼠标移动事件");
+	}
+	public void run() {
+		
 	}
 
 }

@@ -16,11 +16,11 @@ import com.jachs.desktop.configer.InitPropertiesInterFace;
  * 
  */
 public class BaseThread implements InitPropertiesInterFace{
-    Dimension screenSize;
-    Rectangle screenRectangle;
-    ServerSocket serverSocket;
-    Socket socket;
-    Robot robot;
+	protected Dimension screenSize;
+    protected Rectangle screenRectangle;
+    protected ServerSocket serverSocket;
+    protected Socket socket;
+    protected Robot robot;
     
     public BaseThread () {
         init ();

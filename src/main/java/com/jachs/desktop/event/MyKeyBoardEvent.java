@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
  * @author zhanchaohan
  *
  */
-public class MyKeyBoardEvent implements KeyListener{
+public class MyKeyBoardEvent implements KeyListener,Runnable{
 
 	public void keyTyped(KeyEvent e) {
 		System.out.println(e.getKeyChar()+"keyTyped");
@@ -20,6 +20,10 @@ public class MyKeyBoardEvent implements KeyListener{
 
 	public void keyReleased(KeyEvent e) {
 		System.out.println(e.getKeyChar()+"keyReleased");
+	}
+
+	public void run() {
+		
 	}
 
 }

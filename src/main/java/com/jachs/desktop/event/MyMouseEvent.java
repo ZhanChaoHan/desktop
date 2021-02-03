@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
  * @author jachs
  *
  */
-public class MyMouseEvent implements MouseListener{
+public class MyMouseEvent implements MouseListener,Runnable{
 
 	public void mouseClicked(MouseEvent e) {
 		
@@ -27,6 +27,11 @@ public class MyMouseEvent implements MouseListener{
 	}
 
 	public void mouseExited(MouseEvent e) {
+		
+	}
+
+	public void run() {
+		// TODO Auto-generated method stub
 		
 	}
 

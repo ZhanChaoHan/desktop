@@ -8,16 +8,16 @@ import java.awt.event.MouseMotionListener;
  * @author zhanchaohan
  *
  */
-public class MyMouseMotionEvent implements MouseMotionListener,Runnable{
+public class ClientMouseMotionEvent implements MouseMotionListener,Runnable{
 	private String siP;
 	private int sPort;
 	
-	public MyMouseMotionEvent() {
+	public ClientMouseMotionEvent() {
 		super();
 	}
 	
 	
-	public MyMouseMotionEvent(String siP, int sPort) {
+	public ClientMouseMotionEvent(String siP, int sPort) {
 		super();
 		this.siP = siP;
 		this.sPort = sPort;

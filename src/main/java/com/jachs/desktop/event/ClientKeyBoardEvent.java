@@ -8,15 +8,15 @@ import java.awt.event.KeyListener;
  * @author zhanchaohan
  *
  */
-public class MyKeyBoardEvent implements KeyListener,Runnable{
+public class ClientKeyBoardEvent implements KeyListener,Runnable{
 	private String siP;
 	private int sPort;
 	
-	public MyKeyBoardEvent() {
+	public ClientKeyBoardEvent() {
 		super();
 	}
 
-	public MyKeyBoardEvent(String siP, int sPort) {
+	public ClientKeyBoardEvent(String siP, int sPort) {
 		super();
 		this.siP = siP;
 		this.sPort = sPort;

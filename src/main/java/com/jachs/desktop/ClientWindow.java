@@ -22,9 +22,9 @@ import com.jachs.desktop.configer.InitPropertiesInterFace;
 import com.jachs.desktop.configer.StaticConfigure;
 import com.jachs.desktop.entity.ManEntity;
 import com.jachs.desktop.entity.po.ClientPo;
-import com.jachs.desktop.event.MyKeyBoardEvent;
-import com.jachs.desktop.event.MyMouseEvent;
-import com.jachs.desktop.event.MyMouseMotionEvent;
+import com.jachs.desktop.event.ClientKeyBoardEvent;
+import com.jachs.desktop.event.ClientMouseEvent;
+import com.jachs.desktop.event.ClientMouseMotionEvent;
 import com.jachs.desktop.thread.ClientManThread;
 import com.jachs.desktop.thread.client.ClientWriterAviThread;
 import com.jachs.desktop.thread.client.ClientWriterPictrueThread;
@@ -89,9 +89,9 @@ public class ClientWindow implements InitPropertiesInterFace {
                 
             }
         } );
-        f.addMouseListener ( new MyMouseEvent () );//添加鼠标事件监听
-        f.addKeyListener ( new MyKeyBoardEvent () );//添加键盘事件监听
-        f.addMouseMotionListener ( new MyMouseMotionEvent () );//添加鼠标移动拖动事件监听
+        f.addMouseListener ( new ClientMouseEvent () );//添加鼠标事件监听
+        f.addKeyListener ( new ClientKeyBoardEvent () );//添加键盘事件监听
+        f.addMouseMotionListener ( new ClientMouseMotionEvent () );//添加鼠标移动拖动事件监听
 
         f.setTitle ( "抓取桌面" );// 添加标题
         f.setSize ( cp.getHigh (), cp.getHigh () );// 设置窗体的尺寸
@@ -114,9 +114,9 @@ public class ClientWindow implements InitPropertiesInterFace {
         f.setVisible ( true );// 设置窗体的可见性
         
         new Thread(new ClientWriterPictrueThread(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getPictruePort())).start();//
-		new Thread(new MyKeyBoardEvent(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getMyKeyBoardEventPort())).start();
-		new Thread(new MyMouseEvent(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getMyMouseEventPort())).start();
-		new Thread(new MyMouseMotionEvent(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getMyMouseMotionEventPort())).start();
+		new Thread(new ClientKeyBoardEvent(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getMyKeyBoardEventPort())).start();
+		new Thread(new ClientMouseEvent(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getMyMouseEventPort())).start();
+		new Thread(new ClientMouseMotionEvent(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getMyMouseMotionEventPort())).start();
     }
 
 }

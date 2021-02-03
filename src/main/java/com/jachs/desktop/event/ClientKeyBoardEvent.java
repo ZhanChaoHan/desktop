@@ -21,15 +21,13 @@ public class ClientKeyBoardEvent implements KeyListener,Runnable{
 		this.siP = siP;
 		this.sPort = sPort;
 	}
-
+	//第二执行
 	public void keyTyped(KeyEvent e) {
-		System.out.println(e.getKeyChar()+"keyTyped");
 	}
-
+	//按下一个键盘事件,最先触发
 	public void keyPressed(KeyEvent e) {
-		System.out.println(e.getKeyChar()+"keyPressed");
 	}
-
+	//最后释放键盘事件，最后触发
 	public void keyReleased(KeyEvent e) {
 		System.out.println(e.getKeyChar()+"keyReleased");
 	}

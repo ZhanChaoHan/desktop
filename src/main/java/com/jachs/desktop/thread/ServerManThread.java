@@ -29,6 +29,7 @@ public class ServerManThread implements Runnable{
         	while((manSocket=ManServerSocket.accept())!=null) {//避免测试一直重启
 	            ManEntity manEntity=new ManEntity(serverPo);
 	            new ObjectOutputStream (manSocket.getOutputStream ()).writeObject ( manEntity );//传递初始化参数
+	            Thread.sleep(200);
 	            ManServerSocket.close();
         	}
         }

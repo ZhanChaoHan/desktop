@@ -1,9 +1,11 @@
 package com.jachs.desktop.utill;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import com.jachs.desktop.configer.StaticConfigure;
+
 
 /**
  * 扫描区间端口
@@ -11,12 +13,13 @@ import java.net.UnknownHostException;
  * 
  */
 public class SocketCheckOutUtill {
-    public int CheckRangPort ( String hostIp , int star , int end ) throws UnknownHostException {
-        for ( int k = star ; k < end ; k++ ) {
-            if(!OccupiedOrNot(hostIp,k)) {
-                return k;
-            };
-        }
+    public int CheckRangPort ( String hostIp) throws UnknownHostException {
+    	for (Integer k : StaticConfigure.PORTLIST) {
+    		 if(!OccupiedOrNot(hostIp,k)) {
+    			 StaticConfigure.PORTLIST.remove(k);
+                 return k;
+             };
+		}
         return 0;
     }
 

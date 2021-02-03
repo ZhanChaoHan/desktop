@@ -20,12 +20,12 @@ import com.jachs.desktop.entity.Pictrue;
  * @author Jachs
  *
  */
-public class WriterPictrueThread implements Runnable {
+public class ClientWriterPictrueThread implements Runnable {
 	private String siP;
 	private int sPort;
 	
 
-	public WriterPictrueThread (String siP, int sPort ) {
+	public ClientWriterPictrueThread (String siP, int sPort ) {
         super ();
         this.siP = siP;
         this.sPort = sPort;

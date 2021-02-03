@@ -15,7 +15,7 @@ import com.jachs.desktop.utill.PicToAviUtil;
  * @author zhanchaohan
  *
  */
-public class WriterAviThread implements Runnable {
+public class ClientWriterAviThread implements Runnable {
 	public void run() {
 		try {
 			PicToAviUtil.convertPicToAvi(StaticConfigure.CLIENTIMAGEPATH, "demo.avi", 3, 1440, 860);

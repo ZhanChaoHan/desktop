@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.net.Socket;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
@@ -16,12 +18,13 @@ import javax.swing.JLabel;
 import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.configer.InitPropertiesInterFace;
+import com.jachs.desktop.entity.ManEntity;
 import com.jachs.desktop.entity.po.ClientPo;
 import com.jachs.desktop.event.MyKeyBoardEvent;
 import com.jachs.desktop.event.MyMouseEvent;
 import com.jachs.desktop.event.MyMouseMotionEvent;
-import com.jachs.desktop.thread.WriterAviThread;
-import com.jachs.desktop.thread.WriterPictrueThread;
+import com.jachs.desktop.thread.client.WriterAviThread;
+import com.jachs.desktop.thread.client.WriterPictrueThread;
 
 /****
  * 客戶展示端
@@ -36,8 +39,8 @@ public class ClientWindow implements InitPropertiesInterFace {
     static Frame f = new Frame ();
     public static JLabel imgLabel;
     public static ImageIcon img;
-    static boolean exit = false;
 
+    private ManEntity manEntity;
     public void init () throws IOException {
         pro.load ( ServerWindow.class.getResourceAsStream ( "/client.properties" ) );
         
@@ -48,6 +51,17 @@ public class ClientWindow implements InitPropertiesInterFace {
         cp.setWidth ( Integer.parseInt (pro.getProperty ( "client.window.width" )) );
         cp.setX ( Integer.parseInt (pro.getProperty ( "clent.init.position.x" )) );
         cp.setY ( Integer.parseInt (pro.getProperty ( "clent.init.position.y" )) );
+        
+        InputStream inputStream=new Socket ( cp.getServerHost (), cp.getPort () ).getInputStream ();
+        ObjectInputStream objectInputStream=new ObjectInputStream(inputStream);
+        
+        try {
+            manEntity= (ManEntity) objectInputStream.readObject ();
+            objectInputStream.close ();
+        }
+        catch ( ClassNotFoundException e ) {
+            e.printStackTrace();
+        }
     }
 
     public void start () throws IOException {
@@ -55,7 +69,6 @@ public class ClientWindow implements InitPropertiesInterFace {
         f.addWindowListener ( new WindowAdapter () {
             @Override
             public void windowClosing ( WindowEvent e ) {//窗体关闭监听事件
-                exit = true;
                 f.setVisible ( false );// 设置窗体的可见性
                 Thread WriterAviThread = new Thread ( new WriterAviThread () );
                 WriterAviThread.start ();//将图片写入为视屏文件

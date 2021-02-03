@@ -16,4 +16,8 @@ public class ServerPo {
     private String ip;
     private int port;
     
+    private int PictruePort;
+    private int MyKeyBoardEventPort;
+    private int MyMouseEventPort;
+    private int MyMouseMotionEventPort;
 }

@@ -1,4 +1,4 @@
-package com.jachs.desktop.thread;
+package com.jachs.desktop.thread.client;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

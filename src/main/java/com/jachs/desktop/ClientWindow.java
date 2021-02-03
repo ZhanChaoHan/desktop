@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import org.apache.commons.io.IOUtils;
 
@@ -23,8 +24,8 @@ import com.jachs.desktop.entity.po.ClientPo;
 import com.jachs.desktop.event.MyKeyBoardEvent;
 import com.jachs.desktop.event.MyMouseEvent;
 import com.jachs.desktop.event.MyMouseMotionEvent;
-import com.jachs.desktop.thread.client.WriterAviThread;
-import com.jachs.desktop.thread.client.WriterPictrueThread;
+import com.jachs.desktop.thread.client.ClientWriterAviThread;
+import com.jachs.desktop.thread.client.ClientWriterPictrueThread;
 
 /****
  * 客戶展示端
@@ -36,6 +37,7 @@ public class ClientWindow implements InitPropertiesInterFace {
     private Properties pro=new Properties ();
     private ClientPo cp=new ClientPo();
     
+    private boolean inintSuccess=false;
     static Frame f = new Frame ();
     public static JLabel imgLabel;
     public static ImageIcon img;
@@ -58,6 +60,8 @@ public class ClientWindow implements InitPropertiesInterFace {
         try {
             manEntity= (ManEntity) objectInputStream.readObject ();
             objectInputStream.close ();
+            
+            inintSuccess=true;
         }
         catch ( ClassNotFoundException e ) {
             e.printStackTrace();
@@ -65,12 +69,15 @@ public class ClientWindow implements InitPropertiesInterFace {
     }
 
     public void start () throws IOException {
+        if(!inintSuccess) {
+            JOptionPane.showMessageDialog(f, "初始化参数失败请检查配置文件", "标题",JOptionPane.WARNING_MESSAGE);  
+        }
         // 关闭窗体K
         f.addWindowListener ( new WindowAdapter () {
             @Override
             public void windowClosing ( WindowEvent e ) {//窗体关闭监听事件
                 f.setVisible ( false );// 设置窗体的可见性
-                Thread WriterAviThread = new Thread ( new WriterAviThread () );
+                Thread WriterAviThread = new Thread ( new ClientWriterAviThread () );
                 WriterAviThread.start ();//将图片写入为视屏文件
             }
         } );
@@ -98,7 +105,7 @@ public class ClientWindow implements InitPropertiesInterFace {
         f.add ( imgLabel );
         f.setVisible ( true );// 设置窗体的可见性
 
-        Thread WriterPictrueThread = new Thread ( new WriterPictrueThread ( cp.getServerHost (), cp.getPort ()) );
+        Thread WriterPictrueThread = new Thread ( new ClientWriterPictrueThread ( cp.getServerHost (), cp.getPort ()) );
 
         WriterPictrueThread.start ();
     }

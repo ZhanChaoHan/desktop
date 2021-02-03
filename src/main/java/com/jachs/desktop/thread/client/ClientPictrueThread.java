@@ -1,4 +1,4 @@
-package com.jachs.desktop.thread.server;
+package com.jachs.desktop.thread.client;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -14,10 +14,10 @@ import com.jachs.desktop.thread.BaseThread;
  * @author zhanchaohan
  * 
  */
-public class ServerPictrueThread extends BaseThread implements Runnable {
+public class ClientPictrueThread extends BaseThread implements Runnable {
     private int webSocketPort;
 
-    public ServerPictrueThread ( int webSocketPort ) {
+    public ClientPictrueThread ( int webSocketPort ) {
         super ();
         this.webSocketPort = webSocketPort;
     }

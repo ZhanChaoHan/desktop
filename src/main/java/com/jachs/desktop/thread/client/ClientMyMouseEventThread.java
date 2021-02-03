@@ -1,4 +1,4 @@
-package com.jachs.desktop.thread.server;
+package com.jachs.desktop.thread.client;
 
 import com.jachs.desktop.thread.BaseThread;
 
@@ -6,13 +6,14 @@ import com.jachs.desktop.thread.BaseThread;
  * @author zhanchaohan
  * 
  */
-public class ServerMyMouseMotionEventThread extends BaseThread implements Runnable {
+public class ClientMyMouseEventThread extends BaseThread implements Runnable {
     private int webSocketPort;
     
-    public ServerMyMouseMotionEventThread ( int webSocketPort ) {
+    public ClientMyMouseEventThread ( int webSocketPort ) {
         super ();
         this.webSocketPort = webSocketPort;
     }
+
 
     public void run () {
         

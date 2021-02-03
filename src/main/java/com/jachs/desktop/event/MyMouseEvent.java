@@ -9,6 +9,18 @@ import java.awt.event.MouseListener;
  *
  */
 public class MyMouseEvent implements MouseListener,Runnable{
+	private String siP;
+	private int sPort;
+	
+	public MyMouseEvent() {
+		super();
+	}
+	public MyMouseEvent(String siP, int sPort) {
+		super();
+		this.siP = siP;
+		this.sPort = sPort;
+	}
+
 
 	public void mouseClicked(MouseEvent e) {
 		

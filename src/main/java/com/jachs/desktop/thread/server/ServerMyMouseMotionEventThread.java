@@ -1,5 +1,8 @@
 package com.jachs.desktop.thread.server;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+
 import com.jachs.desktop.thread.BaseThread;
 
 /**
@@ -15,7 +18,13 @@ public class ServerMyMouseMotionEventThread extends BaseThread implements Runnab
     }
 
     public void run () {
-        
+        try {
+        	serverSocket = new ServerSocket ( webSocketPort );
+			socket = serverSocket.accept ();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 }

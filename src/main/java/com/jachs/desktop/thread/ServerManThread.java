@@ -4,11 +4,11 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.jachs.desktop.configer.StaticConfigure;
 import com.jachs.desktop.entity.ManEntity;
 import com.jachs.desktop.entity.po.ServerPo;
 
 /**
+ * 初始化线程
  * @author zhanchaohan
  * 
  */
@@ -22,11 +22,15 @@ public class ServerManThread implements Runnable{
 
     public void run () {
         try {
-            StaticConfigure.ManServerSocket=new ServerSocket ( serverPo.getPort () );
+        	ServerSocket  ManServerSocket=new ServerSocket ( serverPo.getPort () );
             
-            Socket manSocket= StaticConfigure.ManServerSocket.accept ();//单连接
-            ManEntity manEntity=new ManEntity(serverPo);
-            new ObjectOutputStream (manSocket.getOutputStream ()).writeObject ( manEntity );//传递初始化参数
+//            Socket manSocket= ManServerSocket.accept ();//单连接
+        	Socket manSocket;
+        	while((manSocket=ManServerSocket.accept())!=null) {//避免测试一直重启
+	            ManEntity manEntity=new ManEntity(serverPo);
+	            new ObjectOutputStream (manSocket.getOutputStream ()).writeObject ( manEntity );//传递初始化参数
+	            ManServerSocket.close();
+        	}
         }
         catch ( Exception e ) {
             e.printStackTrace();

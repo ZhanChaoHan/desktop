@@ -36,29 +36,39 @@ public class ServerWindow implements InitPropertiesInterFace {
         sp.setIp ( ipList.get ( 0) );//字段绑定本机Ip
         sp.setPort ( Integer.parseInt (pro.getProperty ( "server.start.port")));
         
+        sp.setPictruePort(( socketCheckOutUtill.CheckRangPort (
+                ipList.get ( 0),
+                Integer.parseInt (pro.getProperty ( "server.port.start")),
+                Integer.parseInt (pro.getProperty ( "server.port.end" )))));
+        
+        new Thread (new ServerPictrueThread ( sp.getPictruePort () )).start ();
+        
         sp.setMyKeyBoardEventPort ( socketCheckOutUtill.CheckRangPort (
                 ipList.get ( 0),
                 Integer.parseInt (pro.getProperty ( "server.port.start")),
                 Integer.parseInt (pro.getProperty ( "server.port.end" ))));
+        new Thread (new ServerMyKeyBoardEventThread ( sp.getMyKeyBoardEventPort () )).start ();
         
         sp.setMyMouseEventPort ( socketCheckOutUtill.CheckRangPort (
                 ipList.get ( 0),
                 Integer.parseInt (pro.getProperty ( "server.port.start")),
                 Integer.parseInt (pro.getProperty ( "server.port.end" ))));
+        new Thread (new ServerMyMouseEventThread ( sp.getMyMouseEventPort () )).start ();
         
         sp.setMyMouseMotionEventPort ( socketCheckOutUtill.CheckRangPort (
                 ipList.get ( 0),
                 Integer.parseInt (pro.getProperty ( "server.port.start" )),
                 Integer.parseInt (pro.getProperty ( "server.port.end" ))) );
+        new Thread (new ServerMyMouseMotionEventThread ( sp.getMyMouseMotionEventPort () )).start ();
+        
         
         new Thread(new ServerManThread(sp)).start ();
     }
 
     public void start () {
-        new Thread (new ServerPictrueThread ( sp.getPictruePort () )).start ();
-        new Thread (new ServerMyKeyBoardEventThread ( sp.getMyKeyBoardEventPort () )).start ();
-        new Thread (new ServerMyMouseEventThread ( sp.getMyMouseEventPort () )).start ();
-        new Thread (new ServerMyMouseMotionEventThread ( sp.getMyMouseMotionEventPort () )).start ();
+        
+        
+        
     }
 
 }

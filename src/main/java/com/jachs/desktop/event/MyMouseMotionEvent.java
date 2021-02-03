@@ -9,7 +9,20 @@ import java.awt.event.MouseMotionListener;
  *
  */
 public class MyMouseMotionEvent implements MouseMotionListener,Runnable{
+	private String siP;
+	private int sPort;
 	
+	public MyMouseMotionEvent() {
+		super();
+	}
+	
+	
+	public MyMouseMotionEvent(String siP, int sPort) {
+		super();
+		this.siP = siP;
+		this.sPort = sPort;
+	}
+
 	//鼠标拖动事件
 	public void mouseDragged(MouseEvent e) {
 		System.out.println(e.getID()+"鼠标拖动事件");

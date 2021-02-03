@@ -1,5 +1,7 @@
 package com.jachs.desktop.entity.po;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +14,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientPo {
-    private String serverHost;
+public class ClientPo implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private String serverHost;
 	private int port;
     private int high;
     private int width;

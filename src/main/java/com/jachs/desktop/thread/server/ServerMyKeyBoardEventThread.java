@@ -18,7 +18,8 @@ public class ServerMyKeyBoardEventThread extends BaseThread implements Runnable 
 
     public void run () {
         try {
-            
+        	serverSocket = new ServerSocket ( webSocketPort );
+            socket = serverSocket.accept ();
             
         }catch (Exception e) {
             e.printStackTrace ();

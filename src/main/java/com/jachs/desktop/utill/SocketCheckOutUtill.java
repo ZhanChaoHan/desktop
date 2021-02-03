@@ -1,7 +1,6 @@
 package com.jachs.desktop.utill;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -30,12 +29,6 @@ public class SocketCheckOutUtill {
         }catch (Exception e) {
 
         }finally {
-            try {
-                socket.close ();
-            }
-            catch ( IOException e ) {
-                e.printStackTrace();
-            }
         }
         return flag;
     }

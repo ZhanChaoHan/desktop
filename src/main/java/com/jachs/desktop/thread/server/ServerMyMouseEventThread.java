@@ -1,5 +1,7 @@
 package com.jachs.desktop.thread.server;
 
+import java.net.ServerSocket;
+
 import com.jachs.desktop.thread.BaseThread;
 
 /**
@@ -16,7 +18,13 @@ public class ServerMyMouseEventThread extends BaseThread implements Runnable {
 
 
     public void run () {
-        
+    	 try {
+         	serverSocket = new ServerSocket ( webSocketPort );
+ 			socket = serverSocket.accept ();
+ 		} catch (Exception e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
     }
 
 }

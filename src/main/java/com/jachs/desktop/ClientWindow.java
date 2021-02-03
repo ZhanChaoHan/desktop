@@ -19,11 +19,13 @@ import javax.swing.JOptionPane;
 import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.configer.InitPropertiesInterFace;
+import com.jachs.desktop.configer.StaticConfigure;
 import com.jachs.desktop.entity.ManEntity;
 import com.jachs.desktop.entity.po.ClientPo;
 import com.jachs.desktop.event.MyKeyBoardEvent;
 import com.jachs.desktop.event.MyMouseEvent;
 import com.jachs.desktop.event.MyMouseMotionEvent;
+import com.jachs.desktop.thread.ClientManThread;
 import com.jachs.desktop.thread.client.ClientWriterAviThread;
 import com.jachs.desktop.thread.client.ClientWriterPictrueThread;
 
@@ -42,7 +44,7 @@ public class ClientWindow implements InitPropertiesInterFace {
     public static JLabel imgLabel;
     public static ImageIcon img;
 
-    private ManEntity manEntity;
+   
     public void init () throws IOException {
         pro.load ( ServerWindow.class.getResourceAsStream ( "/client.properties" ) );
         
@@ -54,23 +56,22 @@ public class ClientWindow implements InitPropertiesInterFace {
         cp.setX ( Integer.parseInt (pro.getProperty ( "clent.init.position.x" )) );
         cp.setY ( Integer.parseInt (pro.getProperty ( "clent.init.position.y" )) );
         
-        InputStream inputStream=new Socket ( cp.getServerHost (), cp.getPort () ).getInputStream ();
-        ObjectInputStream objectInputStream=new ObjectInputStream(inputStream);
-        
+        Thread clientThread= new Thread(new ClientManThread(cp.getServerHost(),cp.getPort()));//启动主线程
+        clientThread.start();
         try {
-            manEntity= (ManEntity) objectInputStream.readObject ();
-            objectInputStream.close ();
-            
-            inintSuccess=true;
-        }
-        catch ( ClassNotFoundException e ) {
-            e.printStackTrace();
-        }
+			clientThread.join();
+			if(StaticConfigure.MANENTITY!=null) {//线程执行完毕
+				inintSuccess=true;
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     }
 
     public void start () throws IOException {
         if(!inintSuccess) {
-            JOptionPane.showMessageDialog(f, "初始化参数失败请检查配置文件", "标题",JOptionPane.WARNING_MESSAGE);  
+            JOptionPane.showMessageDialog(f, "初始化参数失败请检查配置文件", "标题",JOptionPane.WARNING_MESSAGE);
+            System.exit(0);
         }
         // 关闭窗体K
         f.addWindowListener ( new WindowAdapter () {
@@ -79,6 +80,13 @@ public class ClientWindow implements InitPropertiesInterFace {
                 f.setVisible ( false );// 设置窗体的可见性
                 Thread WriterAviThread = new Thread ( new ClientWriterAviThread () );
                 WriterAviThread.start ();//将图片写入为视屏文件
+                try {
+					WriterAviThread.join();
+					System.exit(0);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+                
             }
         } );
         f.addMouseListener ( new MyMouseEvent () );//添加鼠标事件监听
@@ -104,10 +112,11 @@ public class ClientWindow implements InitPropertiesInterFace {
 
         f.add ( imgLabel );
         f.setVisible ( true );// 设置窗体的可见性
-
-        Thread WriterPictrueThread = new Thread ( new ClientWriterPictrueThread ( cp.getServerHost (), cp.getPort ()) );
-
-        WriterPictrueThread.start ();
+        
+        new Thread(new ClientWriterPictrueThread(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getPictruePort())).start();//
+		new Thread(new MyKeyBoardEvent(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getMyKeyBoardEventPort())).start();
+		new Thread(new MyMouseEvent(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getMyMouseEventPort())).start();
+		new Thread(new MyMouseMotionEvent(cp.getServerHost(),StaticConfigure.MANENTITY.getServerPo().getMyMouseMotionEventPort())).start();
     }
 
 }

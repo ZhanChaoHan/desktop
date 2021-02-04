@@ -1,6 +1,5 @@
 package com.jachs.desktop.thread.server;
 
-import java.io.IOException;
 import java.net.ServerSocket;
 
 import com.jachs.desktop.thread.BaseThread;

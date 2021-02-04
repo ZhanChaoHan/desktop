@@ -22,7 +22,7 @@ import com.jachs.desktop.entity.po.ClientPo;
 import com.jachs.desktop.event.ClientKeyBoardEvent;
 import com.jachs.desktop.event.ClientMouseEvent;
 import com.jachs.desktop.event.ClientMouseMotionEvent;
-import com.jachs.desktop.thread.ClientManThread;
+import com.jachs.desktop.thread.ClientManThreadIn;
 import com.jachs.desktop.thread.client.ClientWriterAviThread;
 import com.jachs.desktop.thread.client.ClientWriterPictrueThread;
 
@@ -52,7 +52,7 @@ public class ClientWindow implements InitPropertiesInterFace {
 		cp.setX(Integer.parseInt(pro.getProperty("clent.init.position.x")));
 		cp.setY(Integer.parseInt(pro.getProperty("clent.init.position.y")));
 		
-		Thread clientManThread=new Thread(new ClientManThread(new Socket(cp.getServerHost(), cp.getPort()) ));
+		Thread clientManThread=new Thread(new ClientManThreadIn(new Socket(cp.getServerHost(), cp.getPort()) ));
 		clientManThread.start();
 		clientManThread.join();
 	}

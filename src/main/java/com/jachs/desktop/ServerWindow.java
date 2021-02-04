@@ -9,7 +9,7 @@ import java.util.Properties;
 import com.jachs.desktop.configer.InitPropertiesInterFace;
 import com.jachs.desktop.configer.StaticConfigure;
 import com.jachs.desktop.entity.po.ServerPo;
-import com.jachs.desktop.thread.ServerManThread;
+import com.jachs.desktop.thread.ServerManThreadIn;
 import com.jachs.desktop.thread.server.ServerMyKeyBoardEventThread;
 import com.jachs.desktop.thread.server.ServerMyMouseEventThread;
 import com.jachs.desktop.thread.server.ServerMyMouseMotionEventThread;
@@ -48,7 +48,7 @@ public class ServerWindow implements InitPropertiesInterFace {
         sp.setMyMouseEventPort (socketCheckOutUtill.CheckRangPort (ipList.get ( 0)));
         sp.setMyMouseMotionEventPort (socketCheckOutUtill.CheckRangPort (ipList.get ( 0)));
         
-        new Thread(new ServerManThread(sp,new ServerSocket(sp.getPort()))).start();
+        new Thread(new ServerManThreadIn(sp,new ServerSocket(sp.getPort()))).start();
     }
 
     public void start () {

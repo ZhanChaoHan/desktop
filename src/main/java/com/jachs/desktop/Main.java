@@ -8,7 +8,7 @@ import java.io.IOException;
  *
  */
 public class Main {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		String windowsType = args[0];
 		if (windowsType.equalsIgnoreCase("server")) {
 			ServerWindow sw = new ServerWindow();

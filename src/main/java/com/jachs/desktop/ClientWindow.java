@@ -55,18 +55,14 @@ public class ClientWindow implements InitPropertiesInterFace {
 		cp.setY(Integer.parseInt(pro.getProperty("clent.init.position.y")));
 	}
 
-	public void start() throws IOException {
-		try {
-			Socket socket = new Socket(cp.getServerHost(), cp.getPort());
-			System.out.println(socket.getKeepAlive());
-			ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-			while ((StaticConfigure.MANENTITY = (ManEntity) objectInputStream.readObject()) != null) {
-				objectInputStream.close();
-				socket.close();
-				inintSuccess = true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+	public void start() throws Exception {
+		Socket socket = new Socket(cp.getServerHost(), cp.getPort());
+		System.out.println(socket.getKeepAlive());
+		ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+		while ((StaticConfigure.MANENTITY = (ManEntity) objectInputStream.readObject()) != null) {
+			objectInputStream.close();
+			socket.close();
+			inintSuccess = true;
 		}
 		if (!inintSuccess) {
 			JOptionPane.showMessageDialog(f, "初始化参数失败请检查配置文件", "标题", JOptionPane.WARNING_MESSAGE);
@@ -113,9 +109,14 @@ public class ClientWindow implements InitPropertiesInterFace {
 		f.setVisible(true);// 设置窗体的可见性
 
 		new Thread(new ClientWriterPictrueThread(cp.getServerHost(),
-				StaticConfigure.MANENTITY.getServerPo().getPictruePort())).start();//
-		new Thread(new ClientKeyBoardEvent(cp.getServerHost(),
-				StaticConfigure.MANENTITY.getServerPo().getMyKeyBoardEventPort())).start();
+				StaticConfigure.MANENTITY.getServerPo().getPictruePort())).start();
+
+		Thread KeyBoardThread = new Thread(new ClientKeyBoardEvent(cp.getServerHost(),
+				StaticConfigure.MANENTITY.getServerPo().getMyKeyBoardEventPort()));
+
+		KeyBoardThread.start();
+		KeyBoardThread.wait();
+
 		new Thread(
 				new ClientMouseEvent(cp.getServerHost(), StaticConfigure.MANENTITY.getServerPo().getMyMouseEventPort()))
 						.start();

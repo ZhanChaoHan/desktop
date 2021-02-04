@@ -1,6 +1,5 @@
 package com.jachs.desktop.desktop;
 
-import java.io.IOException;
 
 import com.jachs.desktop.ServerWindow;
 
@@ -9,7 +8,7 @@ import com.jachs.desktop.ServerWindow;
  */
 public class ServerTest {
     
-    public static void main ( String[] args ) throws IOException {
+    public static void main ( String[] args ) throws Exception {
         ServerWindow sw=new ServerWindow();
         
         sw.init ();

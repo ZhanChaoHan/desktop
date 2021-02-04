@@ -1,6 +1,5 @@
 package com.jachs.desktop.desktop;
 
-
 import com.jachs.desktop.ClientWindow;
 
 /**

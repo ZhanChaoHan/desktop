@@ -14,7 +14,6 @@ import com.jachs.desktop.entity.po.ServerPo;
  */
 public class ServerManThread implements Runnable{
     private ServerPo serverPo;
-    
     public ServerManThread ( ServerPo serverPo ) {
         super ();
         this.serverPo = serverPo;
@@ -23,15 +22,16 @@ public class ServerManThread implements Runnable{
     public void run () {
         try {
         	ServerSocket  ManServerSocket=new ServerSocket ( serverPo.getPort () );
-            
+            ObjectOutputStream oos;;
+            ManEntity manEntity=new ManEntity();
+            manEntity.setServerPo(serverPo);
 //            Socket manSocket= ManServerSocket.accept ();//单连接
         	Socket manSocket;
         	while((manSocket=ManServerSocket.accept())!=null) {//避免测试一直重启
-	            ManEntity manEntity=new ManEntity(serverPo);
-	            new ObjectOutputStream (manSocket.getOutputStream ()).writeObject ( manEntity );//传递初始化参数
-	            Thread.sleep(200);
-	            ManServerSocket.close();
+        		oos=new ObjectOutputStream(manSocket.getOutputStream());
+        		oos.writeObject(manEntity);
         	}
+        	
         }
         catch ( Exception e ) {
             e.printStackTrace();

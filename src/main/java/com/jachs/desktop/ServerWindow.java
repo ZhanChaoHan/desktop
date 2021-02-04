@@ -29,7 +29,7 @@ public class ServerWindow implements InitPropertiesInterFace {
     
     SocketCheckOutUtill socketCheckOutUtill=new SocketCheckOutUtill();
     
-    public void init () throws IOException {
+    public void init () throws Exception{
         pro.load ( ServerWindow.class.getResourceAsStream ( "/server.properties"));
         
         List<String>ipList= lanIpGetUtill.getLocalIPList ();
@@ -47,7 +47,7 @@ public class ServerWindow implements InitPropertiesInterFace {
         sp.setMyMouseEventPort (socketCheckOutUtill.CheckRangPort (ipList.get ( 0)));
         sp.setMyMouseMotionEventPort (socketCheckOutUtill.CheckRangPort (ipList.get ( 0)));
         
-        new Thread(new ServerManThread(sp)).start ();
+        new Thread(new ServerManThread(sp)).start();
     }
 
     public void start () {

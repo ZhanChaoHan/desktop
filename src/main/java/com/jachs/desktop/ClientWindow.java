@@ -56,14 +56,15 @@ public class ClientWindow implements InitPropertiesInterFace {
 	}
 
 	public void start() throws Exception {
+		System.out.println("caeqw");
 		Socket socket = new Socket(cp.getServerHost(), cp.getPort());
 		System.out.println(socket.getKeepAlive());
 		ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 		while ((StaticConfigure.MANENTITY = (ManEntity) objectInputStream.readObject()) != null) {
 			objectInputStream.close();
-			socket.close();
 			inintSuccess = true;
 		}
+		socket.close();
 		if (!inintSuccess) {
 			JOptionPane.showMessageDialog(f, "初始化参数失败请检查配置文件", "标题", JOptionPane.WARNING_MESSAGE);
 			System.exit(0);

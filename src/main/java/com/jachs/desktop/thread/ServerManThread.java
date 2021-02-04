@@ -14,14 +14,18 @@ import com.jachs.desktop.entity.po.ServerPo;
  */
 public class ServerManThread implements Runnable{
     private ServerPo serverPo;
-    public ServerManThread ( ServerPo serverPo ) {
-        super ();
-        this.serverPo = serverPo;
-    }
+    private ServerSocket  ManServerSocket;
+    
 
-    public void run () {
+    public ServerManThread(ServerPo serverPo, ServerSocket manServerSocket) {
+		super();
+		this.serverPo = serverPo;
+		ManServerSocket = manServerSocket;
+	}
+
+
+	public void run () {
         try {
-        	ServerSocket  ManServerSocket=new ServerSocket ( serverPo.getPort () );
             ObjectOutputStream oos;;
             ManEntity manEntity=new ManEntity();
             manEntity.setServerPo(serverPo);

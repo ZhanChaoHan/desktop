@@ -1,6 +1,7 @@
 package com.jachs.desktop;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.util.List;
 import java.util.Properties;
 
@@ -47,7 +48,7 @@ public class ServerWindow implements InitPropertiesInterFace {
         sp.setMyMouseEventPort (socketCheckOutUtill.CheckRangPort (ipList.get ( 0)));
         sp.setMyMouseMotionEventPort (socketCheckOutUtill.CheckRangPort (ipList.get ( 0)));
         
-        new Thread(new ServerManThread(sp)).start();
+        new Thread(new ServerManThread(sp,new ServerSocket(sp.getPort()))).start();
     }
 
     public void start () {

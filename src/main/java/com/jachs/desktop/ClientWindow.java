@@ -8,7 +8,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.Properties;
 
@@ -20,11 +19,11 @@ import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.configer.InitPropertiesInterFace;
 import com.jachs.desktop.configer.StaticConfigure;
-import com.jachs.desktop.entity.ManEntity;
 import com.jachs.desktop.entity.po.ClientPo;
 import com.jachs.desktop.event.ClientKeyBoardEvent;
 import com.jachs.desktop.event.ClientMouseEvent;
 import com.jachs.desktop.event.ClientMouseMotionEvent;
+import com.jachs.desktop.thread.ClientManThread;
 import com.jachs.desktop.thread.client.ClientWriterAviThread;
 import com.jachs.desktop.thread.client.ClientWriterPictrueThread;
 
@@ -43,7 +42,7 @@ public class ClientWindow implements InitPropertiesInterFace {
 	public static JLabel imgLabel;
 	public static ImageIcon img;
 
-	public void init() throws IOException {
+	public void init() throws Exception {
 		pro.load(ServerWindow.class.getResourceAsStream("/client.properties"));
 
 		cp.setServerHost(pro.getProperty("server.start.ip"));
@@ -53,18 +52,13 @@ public class ClientWindow implements InitPropertiesInterFace {
 		cp.setWidth(Integer.parseInt(pro.getProperty("client.window.width")));
 		cp.setX(Integer.parseInt(pro.getProperty("clent.init.position.x")));
 		cp.setY(Integer.parseInt(pro.getProperty("clent.init.position.y")));
+		
+		Thread clientManThread=new Thread(new ClientManThread(new Socket(cp.getServerHost(), cp.getPort()) ));
+		clientManThread.start();
+		clientManThread.join();
 	}
 
 	public void start() throws Exception {
-		System.out.println("caeqw");
-		Socket socket = new Socket(cp.getServerHost(), cp.getPort());
-		System.out.println(socket.getKeepAlive());
-		ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-		while ((StaticConfigure.MANENTITY = (ManEntity) objectInputStream.readObject()) != null) {
-			objectInputStream.close();
-			inintSuccess = true;
-		}
-		socket.close();
 		if (!inintSuccess) {
 			JOptionPane.showMessageDialog(f, "初始化参数失败请检查配置文件", "标题", JOptionPane.WARNING_MESSAGE);
 			System.exit(0);

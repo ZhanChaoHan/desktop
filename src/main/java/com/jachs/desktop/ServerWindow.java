@@ -57,6 +57,7 @@ public class ServerWindow implements InitPropertiesInterFace {
         
         log.info ( "服务端开启初始化线程" );
         ServerSocket serverSocket=new ServerSocket ( sp.getPort () );
+        log.info ( "服务端的客户端连接成功" );
         Socket socket;
         while((socket=serverSocket.accept ())!=null) {
             ManEntity manEntity=new ManEntity();
@@ -65,7 +66,6 @@ public class ServerWindow implements InitPropertiesInterFace {
             
             ObjectOutputStream objectOutputStream=new ObjectOutputStream ( socket.getOutputStream () );
             objectOutputStream.writeObject ( manEntity );
-            objectOutputStream.flush ();
             
             ObjectInputStream objectInputStream=new ObjectInputStream ( socket.getInputStream ());
             

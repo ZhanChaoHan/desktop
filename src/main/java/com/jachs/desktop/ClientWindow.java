@@ -20,11 +20,11 @@ import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.configer.InitPropertiesInterFace;
 import com.jachs.desktop.configer.StaticConfigure;
+import com.jachs.desktop.entity.ManEntity;
 import com.jachs.desktop.entity.po.ClientPo;
 import com.jachs.desktop.event.ClientKeyBoardEvent;
 import com.jachs.desktop.event.ClientMouseEvent;
 import com.jachs.desktop.event.ClientMouseMotionEvent;
-import com.jachs.desktop.thread.ClientManThreadIn;
 import com.jachs.desktop.thread.client.ClientWriterAviThread;
 import com.jachs.desktop.thread.client.ClientWriterPictrueThread;
 
@@ -57,18 +57,30 @@ public class ClientWindow implements InitPropertiesInterFace {
         cp.setX ( Integer.parseInt ( pro.getProperty ( "clent.init.position.x" ) ) );
         cp.setY ( Integer.parseInt ( pro.getProperty ( "clent.init.position.y" ) ) );
 
-        Socket socket = new Socket ( cp.getServerHost (), cp.getPort () );
-
-        new Thread ( new ClientManThreadIn ( new ObjectInputStream ( socket.getInputStream () ) ) ).start ();
         log.info ( "客户端启动初始化线程" );
-        while ( StaticConfigure.inintSuccess ) {
-            break;
+        Socket socket = new Socket ( cp.getServerHost (), cp.getPort () );
+        ObjectInputStream objectInputStream=new ObjectInputStream ( socket.getInputStream () );
+        ObjectOutputStream objectOutputStream=new ObjectOutputStream(socket.getOutputStream ());
+        while ( ( StaticConfigure.MANENTITY = (ManEntity) objectInputStream.readObject () ) != null ) {
+            objectInputStream.close ();
+            StaticConfigure.inintSuccess = true;
+            log.info ( "客户端初始化线程初始化完毕" );
+            
+            objectOutputStream.write ( "成功".getBytes () );
         }
+        socket.shutdownOutput ();
+        socket.shutdownInput ();
+        socket.close ();
+//        new Thread ( new ClientManThreadIn (new ObjectInputStream (socket.getInputStream ()))).start ();
+//        while ( StaticConfigure.inintSuccess ) {
+//            break;
+//        }
         //		new Thread ( new ClientManThreadOut(new ObjectOutputStream ( socket.getOutputStream () )) ).start ();
     }
 
     public void start () throws Exception {
         if ( !StaticConfigure.inintSuccess ) {
+            log.info ( "客户端初始化参数失败程序退出" );
             JOptionPane.showMessageDialog ( f, "初始化参数失败请检查配置文件", "标题", JOptionPane.WARNING_MESSAGE );
             System.exit ( 0 );
         }
@@ -92,7 +104,8 @@ public class ClientWindow implements InitPropertiesInterFace {
         f.addMouseListener ( new ClientMouseEvent () );// 添加鼠标事件监听
         f.addKeyListener ( new ClientKeyBoardEvent () );// 添加键盘事件监听
         f.addMouseMotionListener ( new ClientMouseMotionEvent () );// 添加鼠标移动拖动事件监听
-
+        log.info ( "客户端事件监听以加载" );
+        
         f.setTitle ( "抓取桌面" );// 添加标题
         f.setSize ( cp.getHigh (), cp.getHigh () );// 设置窗体的尺寸
         f.setLocation ( cp.getX (), cp.getY () );// 设置窗体出现坐标

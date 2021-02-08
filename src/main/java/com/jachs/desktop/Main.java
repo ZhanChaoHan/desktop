@@ -1,6 +1,5 @@
 package com.jachs.desktop;
 
-import java.io.IOException;
 
 /***
  * 

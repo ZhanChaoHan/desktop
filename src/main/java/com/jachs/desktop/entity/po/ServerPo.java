@@ -23,4 +23,5 @@ public class ServerPo implements Serializable{
     private int MyKeyBoardEventPort;
     private int MyMouseEventPort;
     private int MyMouseMotionEventPort;
+    
 }

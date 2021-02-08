@@ -1,7 +1,10 @@
 package com.jachs.desktop;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.List;
 import java.util.Properties;
 
@@ -9,6 +12,7 @@ import java.util.Properties;
 import com.jachs.desktop.configer.InitPropertiesInterFace;
 import com.jachs.desktop.configer.StaticConfigure;
 import com.jachs.desktop.entity.po.ServerPo;
+import com.jachs.desktop.thread.ClientManThreadOut;
 import com.jachs.desktop.thread.ServerManThreadIn;
 import com.jachs.desktop.thread.server.ServerMyKeyBoardEventThread;
 import com.jachs.desktop.thread.server.ServerMyMouseEventThread;
@@ -48,7 +52,12 @@ public class ServerWindow implements InitPropertiesInterFace {
         sp.setMyMouseEventPort (socketCheckOutUtill.CheckRangPort (ipList.get ( 0)));
         sp.setMyMouseMotionEventPort (socketCheckOutUtill.CheckRangPort (ipList.get ( 0)));
         
-        new Thread(new ServerManThreadIn(sp,new ServerSocket(sp.getPort()))).start();
+        ServerSocket serverSocket=new ServerSocket ( sp.getPort () );
+        Socket socket;
+        while((socket=serverSocket.accept ())!=null) {
+            new Thread(new ServerManThreadIn(new ObjectInputStream (socket.getInputStream ()))).start();
+            new Thread (new ClientManThreadOut(new ObjectOutputStream ( socket.getOutputStream () ))).start ();;
+        }
     }
 
     public void start () {

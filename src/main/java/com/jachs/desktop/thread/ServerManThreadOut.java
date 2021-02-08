@@ -1,11 +1,8 @@
 package com.jachs.desktop.thread;
 
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 import com.jachs.desktop.entity.ManEntity;
-import com.jachs.desktop.entity.po.ServerPo;
 
 /**
  * 初始化线程

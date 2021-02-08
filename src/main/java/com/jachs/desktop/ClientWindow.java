@@ -7,6 +7,8 @@ import java.awt.event.WindowEvent;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Properties;
 
@@ -23,6 +25,7 @@ import com.jachs.desktop.event.ClientKeyBoardEvent;
 import com.jachs.desktop.event.ClientMouseEvent;
 import com.jachs.desktop.event.ClientMouseMotionEvent;
 import com.jachs.desktop.thread.ClientManThreadIn;
+import com.jachs.desktop.thread.ClientManThreadOut;
 import com.jachs.desktop.thread.client.ClientWriterAviThread;
 import com.jachs.desktop.thread.client.ClientWriterPictrueThread;
 
@@ -52,9 +55,10 @@ public class ClientWindow implements InitPropertiesInterFace {
 		cp.setX(Integer.parseInt(pro.getProperty("clent.init.position.x")));
 		cp.setY(Integer.parseInt(pro.getProperty("clent.init.position.y")));
 		
-		Thread clientManThread=new Thread(new ClientManThreadIn(new Socket(cp.getServerHost(), cp.getPort()) ));
-		clientManThread.start();
-		clientManThread.join();
+		Socket socket=new Socket ( cp.getServerHost (), cp.getPort () );
+		
+		new Thread ( new ClientManThreadIn ( new ObjectInputStream ( socket.getInputStream () ) ) ).start ();
+		new Thread ( new ClientManThreadOut(new ObjectOutputStream ( socket.getOutputStream () )) ).start ();
 	}
 
 	public void start() throws Exception {

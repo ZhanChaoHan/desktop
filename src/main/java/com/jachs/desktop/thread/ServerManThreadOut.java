@@ -27,7 +27,7 @@ public class ServerManThreadOut implements Runnable{
 
 	public void run() {
 		try {
-			objectOutputStream.writeObject(manEntity);
+			 objectOutputStream.writeObject ( manEntity );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

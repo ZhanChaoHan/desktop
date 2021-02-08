@@ -11,9 +11,10 @@ import java.util.Properties;
 
 import com.jachs.desktop.configer.InitPropertiesInterFace;
 import com.jachs.desktop.configer.StaticConfigure;
+import com.jachs.desktop.entity.ManEntity;
+import com.jachs.desktop.entity.SendInfoType;
 import com.jachs.desktop.entity.po.ServerPo;
-import com.jachs.desktop.thread.ClientManThreadOut;
-import com.jachs.desktop.thread.ServerManThreadIn;
+import com.jachs.desktop.thread.ServerManThreadOut;
 import com.jachs.desktop.thread.server.ServerMyKeyBoardEventThread;
 import com.jachs.desktop.thread.server.ServerMyMouseEventThread;
 import com.jachs.desktop.thread.server.ServerMyMouseMotionEventThread;
@@ -55,8 +56,11 @@ public class ServerWindow implements InitPropertiesInterFace {
         ServerSocket serverSocket=new ServerSocket ( sp.getPort () );
         Socket socket;
         while((socket=serverSocket.accept ())!=null) {
-            new Thread(new ServerManThreadIn(new ObjectInputStream (socket.getInputStream ()))).start();
-            new Thread (new ClientManThreadOut(new ObjectOutputStream ( socket.getOutputStream () ))).start ();;
+            ManEntity manEntity=new ManEntity();
+            manEntity.setSendInfoType ( SendInfoType.InitThread );
+            manEntity.setServerPo ( sp );
+//            new Thread(new ServerManThreadIn(new ObjectInputStream (socket.getInputStream ()))).start();
+            new Thread (new ServerManThreadOut(new ObjectOutputStream ( socket.getOutputStream () ),manEntity)).start ();;
         }
     }
 

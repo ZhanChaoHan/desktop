@@ -10,25 +10,24 @@ import com.jachs.desktop.entity.ManEntity;
  * @author zhanchaohan
  * 
  */
-public class ServerManThreadIn implements Runnable{
-	private ObjectInputStream objectInputStream;
+/*
+public class ServerManThreadIn implements Runnable {
+    private ObjectInputStream objectInputStream;
 
+    public ServerManThreadIn ( ObjectInputStream objectInputStream ) {
+        super ();
+        this.objectInputStream = objectInputStream;
+    }
 
-	public ServerManThreadIn(ObjectInputStream objectInputStream) {
-		super();
-		this.objectInputStream = objectInputStream;
-	}
-
-
-	public void run() {
-		try {
-			while ((StaticConfigure.MANENTITY = (ManEntity) objectInputStream.readObject()) != null) {
-				objectInputStream.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
+    public void run () {
+        try {
+            while ( ( StaticConfigure.MANENTITY = (ManEntity) objectInputStream.readObject () ) != null ) {
+                objectInputStream.close ();
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace ();
+        }
+    }
 }
+*/

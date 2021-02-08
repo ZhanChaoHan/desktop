@@ -25,9 +25,10 @@ import com.jachs.desktop.event.ClientKeyBoardEvent;
 import com.jachs.desktop.event.ClientMouseEvent;
 import com.jachs.desktop.event.ClientMouseMotionEvent;
 import com.jachs.desktop.thread.ClientManThreadIn;
-import com.jachs.desktop.thread.ClientManThreadOut;
 import com.jachs.desktop.thread.client.ClientWriterAviThread;
 import com.jachs.desktop.thread.client.ClientWriterPictrueThread;
+
+import lombok.extern.slf4j.Slf4j;
 
 /****
  * 客戶展示端
@@ -35,91 +36,96 @@ import com.jachs.desktop.thread.client.ClientWriterPictrueThread;
  * @author Jachs
  *
  */
+@Slf4j
 public class ClientWindow implements InitPropertiesInterFace {
-	private Properties pro = new Properties();
-	private ClientPo cp = new ClientPo();
+    private Properties pro = new Properties ();
+    private ClientPo cp = new ClientPo ();
 
-	private boolean inintSuccess = false;
-	static Frame f = new Frame();
-	public static JLabel imgLabel;
-	public static ImageIcon img;
+    static Frame f = new Frame ();
+    public static JLabel imgLabel;
+    public static ImageIcon img;
 
-	public void init() throws Exception {
-		pro.load(ServerWindow.class.getResourceAsStream("/client.properties"));
+    public void init () throws Exception {
+        log.info ( "客户端加载配置文件" );
+        pro.load ( ServerWindow.class.getResourceAsStream ( "/client.properties" ) );
 
-		cp.setServerHost(pro.getProperty("server.start.ip"));
-		cp.setPort(Integer.parseInt(pro.getProperty("server.start.port")));
+        cp.setServerHost ( pro.getProperty ( "server.start.ip" ) );
+        cp.setPort ( Integer.parseInt ( pro.getProperty ( "server.start.port" ) ) );
 
-		cp.setHigh(Integer.parseInt(pro.getProperty("client.window.high")));
-		cp.setWidth(Integer.parseInt(pro.getProperty("client.window.width")));
-		cp.setX(Integer.parseInt(pro.getProperty("clent.init.position.x")));
-		cp.setY(Integer.parseInt(pro.getProperty("clent.init.position.y")));
-		
-		Socket socket=new Socket ( cp.getServerHost (), cp.getPort () );
-		
-		new Thread ( new ClientManThreadIn ( new ObjectInputStream ( socket.getInputStream () ) ) ).start ();
-		new Thread ( new ClientManThreadOut(new ObjectOutputStream ( socket.getOutputStream () )) ).start ();
-	}
+        cp.setHigh ( Integer.parseInt ( pro.getProperty ( "client.window.high" ) ) );
+        cp.setWidth ( Integer.parseInt ( pro.getProperty ( "client.window.width" ) ) );
+        cp.setX ( Integer.parseInt ( pro.getProperty ( "clent.init.position.x" ) ) );
+        cp.setY ( Integer.parseInt ( pro.getProperty ( "clent.init.position.y" ) ) );
 
-	public void start() throws Exception {
-		if (!inintSuccess) {
-			JOptionPane.showMessageDialog(f, "初始化参数失败请检查配置文件", "标题", JOptionPane.WARNING_MESSAGE);
-			System.exit(0);
-		}
-		// 关闭窗体K
-		f.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {// 窗体关闭监听事件
-				f.setVisible(false);// 设置窗体的可见性
-				Thread WriterAviThread = new Thread(new ClientWriterAviThread());
-				WriterAviThread.start();// 将图片写入为视屏文件
-				try {
-					WriterAviThread.join();
-					System.exit(0);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
+        Socket socket = new Socket ( cp.getServerHost (), cp.getPort () );
 
-			}
-		});
-		f.addMouseListener(new ClientMouseEvent());// 添加鼠标事件监听
-		f.addKeyListener(new ClientKeyBoardEvent());// 添加键盘事件监听
-		f.addMouseMotionListener(new ClientMouseMotionEvent());// 添加鼠标移动拖动事件监听
+        new Thread ( new ClientManThreadIn ( new ObjectInputStream ( socket.getInputStream () ) ) ).start ();
+        log.info ( "客户端启动初始化线程" );
+        while ( StaticConfigure.inintSuccess ) {
+            break;
+        }
+        //		new Thread ( new ClientManThreadOut(new ObjectOutputStream ( socket.getOutputStream () )) ).start ();
+    }
 
-		f.setTitle("抓取桌面");// 添加标题
-		f.setSize(cp.getHigh(), cp.getHigh());// 设置窗体的尺寸
-		f.setLocation(cp.getX(), cp.getY());// 设置窗体出现坐标
-		f.setLayout(null);// 清除窗体默认布局
-		f.setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(new File("").getAbsolutePath() + File.separator + "src" + File.separator + "main"
-						+ File.separator + "java" + File.separator + "image" + File.separator + "ico.png"));// 设置图标
-		// f.setResizable(false);// 禁止窗体改变尺寸
+    public void start () throws Exception {
+        if ( !StaticConfigure.inintSuccess ) {
+            JOptionPane.showMessageDialog ( f, "初始化参数失败请检查配置文件", "标题", JOptionPane.WARNING_MESSAGE );
+            System.exit ( 0 );
+        }
+        // 关闭窗体K
+        f.addWindowListener ( new WindowAdapter () {
+            @Override
+            public void windowClosing ( WindowEvent e ) {// 窗体关闭监听事件
+                f.setVisible ( false );// 设置窗体的可见性
+                Thread WriterAviThread = new Thread ( new ClientWriterAviThread () );
+                WriterAviThread.start ();// 将图片写入为视屏文件
+                try {
+                    WriterAviThread.join ();
+                    System.exit ( 0 );
+                }
+                catch ( InterruptedException e1 ) {
+                    e1.printStackTrace ();
+                }
 
-		InputStream is = ClientWindow.class.getResourceAsStream("/image/backgroundDefault.png");
-		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-		IOUtils.copy(is, arrayOutputStream);
-		img = new ImageIcon(arrayOutputStream.toByteArray());
+            }
+        } );
+        f.addMouseListener ( new ClientMouseEvent () );// 添加鼠标事件监听
+        f.addKeyListener ( new ClientKeyBoardEvent () );// 添加键盘事件监听
+        f.addMouseMotionListener ( new ClientMouseMotionEvent () );// 添加鼠标移动拖动事件监听
 
-		imgLabel = new JLabel(img);
-		imgLabel.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
+        f.setTitle ( "抓取桌面" );// 添加标题
+        f.setSize ( cp.getHigh (), cp.getHigh () );// 设置窗体的尺寸
+        f.setLocation ( cp.getX (), cp.getY () );// 设置窗体出现坐标
+        f.setLayout ( null );// 清除窗体默认布局
+        f.setIconImage ( Toolkit.getDefaultToolkit ()
+                .getImage ( new File ( "" ).getAbsolutePath () + File.separator + "src" + File.separator + "main"
+                        + File.separator + "java" + File.separator + "image" + File.separator + "ico.png" ) );// 设置图标
+        // f.setResizable(false);// 禁止窗体改变尺寸
 
-		f.add(imgLabel);
-		f.setVisible(true);// 设置窗体的可见性
+        InputStream is = ClientWindow.class.getResourceAsStream ( "/image/backgroundDefault.png" );
+        ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream ();
+        IOUtils.copy ( is, arrayOutputStream );
+        img = new ImageIcon ( arrayOutputStream.toByteArray () );
 
-		new Thread(new ClientWriterPictrueThread(cp.getServerHost(),
-				StaticConfigure.MANENTITY.getServerPo().getPictruePort())).start();
+        imgLabel = new JLabel ( img );
+        imgLabel.setBounds ( 0, 0, img.getIconWidth (), img.getIconHeight () );
 
-		Thread KeyBoardThread = new Thread(new ClientKeyBoardEvent(cp.getServerHost(),
-				StaticConfigure.MANENTITY.getServerPo().getMyKeyBoardEventPort()));
+        f.add ( imgLabel );
+        f.setVisible ( true );// 设置窗体的可见性
 
-		KeyBoardThread.start();
-		KeyBoardThread.wait();
+        new Thread ( new ClientWriterPictrueThread ( cp.getServerHost (),
+                StaticConfigure.MANENTITY.getServerPo ().getPictruePort () ) ).start ();
 
-		new Thread(
-				new ClientMouseEvent(cp.getServerHost(), StaticConfigure.MANENTITY.getServerPo().getMyMouseEventPort()))
-						.start();
-		new Thread(new ClientMouseMotionEvent(cp.getServerHost(),
-				StaticConfigure.MANENTITY.getServerPo().getMyMouseMotionEventPort())).start();
-	}
+        Thread KeyBoardThread = new Thread ( new ClientKeyBoardEvent ( cp.getServerHost (),
+                StaticConfigure.MANENTITY.getServerPo ().getMyKeyBoardEventPort () ) );
+
+        KeyBoardThread.start ();
+        KeyBoardThread.wait ();
+
+        new Thread ( new ClientMouseEvent ( cp.getServerHost (),
+                StaticConfigure.MANENTITY.getServerPo ().getMyMouseEventPort () ) ).start ();
+        new Thread ( new ClientMouseMotionEvent ( cp.getServerHost (),
+                StaticConfigure.MANENTITY.getServerPo ().getMyMouseMotionEventPort () ) ).start ();
+    }
 
 }

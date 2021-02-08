@@ -5,8 +5,8 @@ package com.jachs.desktop.entity;
  * 
  */
 public enum SendInfoType {
-    InitThread(0),
-	KeyBoard(1);
+    InitThread(0),//初始化
+	KeyBoard(1);//键盘点击
 	
 	
     private int infoType;

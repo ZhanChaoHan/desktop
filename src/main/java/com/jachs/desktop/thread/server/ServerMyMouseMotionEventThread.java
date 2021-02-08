@@ -1,7 +1,9 @@
 package com.jachs.desktop.thread.server;
 
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 
+import com.jachs.desktop.entity.Event;
 import com.jachs.desktop.thread.BaseThread;
 
 /**
@@ -9,21 +11,22 @@ import com.jachs.desktop.thread.BaseThread;
  * 
  */
 public class ServerMyMouseMotionEventThread extends BaseThread implements Runnable {
-    private int webSocketPort;
-    
-    public ServerMyMouseMotionEventThread ( int webSocketPort ) {
-        super ();
-        this.webSocketPort = webSocketPort;
-    }
+	private ObjectInputStream objectInputStream;
+	public ServerMyMouseMotionEventThread(ObjectInputStream objectInputStream) {
+		super();
+		this.objectInputStream = objectInputStream;
+	}
 
-    public void run () {
+
+	public void run () {
         try {
-        	serverSocket = new ServerSocket ( webSocketPort );
-			socket = serverSocket.accept ();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        	Event event;
+        	while((event=(Event) objectInputStream.readObject())!=null) {
+        		System.out.println(event.getSendInfoType().name());
+        	}
+        }catch (Exception e) {
+            e.printStackTrace ();
+        }
     }
 
 }

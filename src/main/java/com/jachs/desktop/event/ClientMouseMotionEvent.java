@@ -8,21 +8,7 @@ import java.awt.event.MouseMotionListener;
  * @author zhanchaohan
  *
  */
-public class ClientMouseMotionEvent implements MouseMotionListener,Runnable{
-	private String siP;
-	private int sPort;
-	
-	public ClientMouseMotionEvent() {
-		super();
-	}
-	
-	
-	public ClientMouseMotionEvent(String siP, int sPort) {
-		super();
-		this.siP = siP;
-		this.sPort = sPort;
-	}
-
+public class ClientMouseMotionEvent implements MouseMotionListener{
 	//鼠标拖动事件
 	public void mouseDragged(MouseEvent e) {
 //		System.out.println(e.getID()+"鼠标拖动事件");
@@ -30,9 +16,6 @@ public class ClientMouseMotionEvent implements MouseMotionListener,Runnable{
 	//鼠标移动事件
 	public void mouseMoved(MouseEvent e) {
 //		System.out.println(e.getID()+"鼠标移动事件");
-	}
-	public void run() {
-		
 	}
 
 }

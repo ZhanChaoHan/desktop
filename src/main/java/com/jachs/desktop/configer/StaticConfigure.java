@@ -1,6 +1,7 @@
 package com.jachs.desktop.configer;
 
 import java.io.File;
+import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
 import com.jachs.desktop.entity.ManEntity;
@@ -18,4 +19,8 @@ public class StaticConfigure {
     public static LinkedList<Integer> PORTLIST = new LinkedList<Integer> ();//初始化端口集合
     public static boolean inintSuccess = false;
     public static ManEntity MANENTITY;
+    
+    public static ObjectOutputStream ClientKeyBoardEventOos;
+    public static ObjectOutputStream ClientMouseEventOos;
+    public static ObjectOutputStream ClientMouseMotionEventOos;
 }

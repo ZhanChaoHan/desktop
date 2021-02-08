@@ -17,7 +17,12 @@ import lombok.NoArgsConstructor;
 public class ClientPo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String serverHost;
-	private int port;
+	private int PictruePort;
+    private int MyKeyBoardEventPort;
+    private int MyMouseEventPort;
+    private int MyMouseMotionEventPort;
+    
+    
     private int high;
     private int width;
     

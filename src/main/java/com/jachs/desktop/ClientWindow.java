@@ -4,11 +4,15 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Properties;
 
@@ -50,40 +54,30 @@ public class ClientWindow implements InitPropertiesInterFace {
         pro.load ( ServerWindow.class.getResourceAsStream ( "/client.properties" ) );
 
         cp.setServerHost ( pro.getProperty ( "server.start.ip" ) );
-        cp.setPort ( Integer.parseInt ( pro.getProperty ( "server.start.port" ) ) );
-
+        
+        cp.setPictruePort(Integer.parseInt ( pro.getProperty ( "server.start.pictrue.port" ) ) );
+        cp.setMyKeyBoardEventPort(Integer.parseInt ( pro.getProperty ( "server.start.clientkeyboard.port" ) ) );
+        cp.setMyMouseEventPort(Integer.parseInt ( pro.getProperty ( "server.start.clientmouse.port" ) ) );
+        cp.setMyMouseMotionEventPort(Integer.parseInt ( pro.getProperty ( "server.start.clientmousemotion.port" ) ) );
+        
         cp.setHigh ( Integer.parseInt ( pro.getProperty ( "client.window.high" ) ) );
         cp.setWidth ( Integer.parseInt ( pro.getProperty ( "client.window.width" ) ) );
         cp.setX ( Integer.parseInt ( pro.getProperty ( "clent.init.position.x" ) ) );
         cp.setY ( Integer.parseInt ( pro.getProperty ( "clent.init.position.y" ) ) );
 
-        log.info ( "客户端启动初始化线程" );
-        Socket socket = new Socket ( cp.getServerHost (), cp.getPort () );
-        ObjectInputStream objectInputStream=new ObjectInputStream ( socket.getInputStream () );
-        ObjectOutputStream objectOutputStream=new ObjectOutputStream(socket.getOutputStream ());
-        while ( ( StaticConfigure.MANENTITY = (ManEntity) objectInputStream.readObject () ) != null ) {
-            objectInputStream.close ();
-            StaticConfigure.inintSuccess = true;
-            log.info ( "客户端初始化线程初始化完毕" );
-            
-            objectOutputStream.write ( "成功".getBytes () );
-        }
-        socket.shutdownOutput ();
-        socket.shutdownInput ();
-        socket.close ();
-//        new Thread ( new ClientManThreadIn (new ObjectInputStream (socket.getInputStream ()))).start ();
-//        while ( StaticConfigure.inintSuccess ) {
-//            break;
-//        }
-        //		new Thread ( new ClientManThreadOut(new ObjectOutputStream ( socket.getOutputStream () )) ).start ();
     }
 
     public void start () throws Exception {
-        if ( !StaticConfigure.inintSuccess ) {
-            log.info ( "客户端初始化参数失败程序退出" );
-            JOptionPane.showMessageDialog ( f, "初始化参数失败请检查配置文件", "标题", JOptionPane.WARNING_MESSAGE );
-            System.exit ( 0 );
-        }
+    	Socket PictrueSk=new Socket(cp.getServerHost(), cp.getPictruePort());
+    	Socket MyKeyBoardSk=new Socket(cp.getServerHost(), cp.getMyKeyBoardEventPort());
+    	Socket MyMouseSk=new Socket(cp.getServerHost(), cp.getMyMouseEventPort());
+    	Socket ServerMyMouseMotionSk=new Socket(cp.getServerHost(), cp.getMyMouseMotionEventPort());
+    	
+//        if ( !StaticConfigure.inintSuccess ) {
+//            log.info ( "客户端初始化参数失败程序退出" );
+//            JOptionPane.showMessageDialog ( f, "初始化参数失败请检查配置文件", "标题", JOptionPane.WARNING_MESSAGE );
+//            System.exit ( 0 );
+//        }
         // 关闭窗体K
         f.addWindowListener ( new WindowAdapter () {
             @Override
@@ -125,20 +119,13 @@ public class ClientWindow implements InitPropertiesInterFace {
 
         f.add ( imgLabel );
         f.setVisible ( true );// 设置窗体的可见性
-
-        new Thread ( new ClientWriterPictrueThread ( cp.getServerHost (),
-                StaticConfigure.MANENTITY.getServerPo ().getPictruePort () ) ).start ();
-
-        Thread KeyBoardThread = new Thread ( new ClientKeyBoardEvent ( cp.getServerHost (),
-                StaticConfigure.MANENTITY.getServerPo ().getMyKeyBoardEventPort () ) );
-
-        KeyBoardThread.start ();
-        KeyBoardThread.wait ();
-
-        new Thread ( new ClientMouseEvent ( cp.getServerHost (),
-                StaticConfigure.MANENTITY.getServerPo ().getMyMouseEventPort () ) ).start ();
-        new Thread ( new ClientMouseMotionEvent ( cp.getServerHost (),
-                StaticConfigure.MANENTITY.getServerPo ().getMyMouseMotionEventPort () ) ).start ();
+        
+        
+        new Thread(new ClientWriterPictrueThread(new ObjectInputStream(PictrueSk.getInputStream()))).start();
+        StaticConfigure.ClientKeyBoardEventOos=new ObjectOutputStream(MyKeyBoardSk.getOutputStream());
+        StaticConfigure.ClientMouseEventOos=new ObjectOutputStream(MyMouseSk.getOutputStream());
+        StaticConfigure.ClientMouseMotionEventOos=new ObjectOutputStream(ServerMyMouseMotionSk.getOutputStream());
+        
     }
 
 }

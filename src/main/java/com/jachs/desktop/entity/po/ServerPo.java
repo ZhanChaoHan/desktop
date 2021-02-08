@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class ServerPo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String ip;
-    private int port;
     
     private int PictruePort;
     private int MyKeyBoardEventPort;

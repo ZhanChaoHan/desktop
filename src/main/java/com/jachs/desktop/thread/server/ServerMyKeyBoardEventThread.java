@@ -1,9 +1,8 @@
 package com.jachs.desktop.thread.server;
 
 import java.io.ObjectInputStream;
-import java.net.ServerSocket;
 
-import com.jachs.desktop.entity.KeyBoardEvent;
+import com.jachs.desktop.entity.Event;
 import com.jachs.desktop.thread.BaseThread;
 
 /**
@@ -11,22 +10,19 @@ import com.jachs.desktop.thread.BaseThread;
  * 
  */
 public class ServerMyKeyBoardEventThread extends BaseThread implements Runnable {
-    private int webSocketPort;
-    ObjectInputStream ois;
-    public ServerMyKeyBoardEventThread ( int webSocketPort ) {
-        super ();
-        this.webSocketPort = webSocketPort;
-    }
+	private ObjectInputStream objectInputStream;
+	public ServerMyKeyBoardEventThread(ObjectInputStream objectInputStream) {
+		super();
+		this.objectInputStream = objectInputStream;
+	}
 
-    public void run () {
+
+	public void run () {
         try {
-        	serverSocket = new ServerSocket ( webSocketPort );
-            socket = serverSocket.accept ();
-            ois=new ObjectInputStream(socket.getInputStream());
-            KeyBoardEvent keyBoardEvent;
-            while((keyBoardEvent=(KeyBoardEvent) ois.readObject())!=null) {
-            	System.out.println(keyBoardEvent.getKey());
-            }
+        	Event event;
+        	while((event=(Event) objectInputStream.readObject())!=null) {
+        		System.out.println(event.getSendInfoType().name());
+        	}
         }catch (Exception e) {
             e.printStackTrace ();
         }

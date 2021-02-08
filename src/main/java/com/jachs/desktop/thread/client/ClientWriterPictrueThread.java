@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
-import java.net.Socket;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
@@ -21,18 +20,14 @@ import com.jachs.desktop.entity.Pictrue;
  *
  */
 public class ClientWriterPictrueThread implements Runnable {
-	private String siP;
-	private int sPort;
-	
+	private ObjectInputStream inputStream;
 
-	public ClientWriterPictrueThread (String siP, int sPort ) {
-        super ();
-        this.siP = siP;
-        this.sPort = sPort;
-    }
+    public ClientWriterPictrueThread(ObjectInputStream inputStream) {
+		super();
+		this.inputStream = inputStream;
+	}
 
-    public void run() {
-		ObjectInputStream inputStream;
+	public void run() {
 		Pictrue pictrue;
 		ByteArrayOutputStream arrayOutputStream;
 		OutputStream outputStream;
@@ -41,9 +36,7 @@ public class ClientWriterPictrueThread implements Runnable {
 			if (!files.exists()) {
 				files.mkdirs();
 			}
-			Socket socket = new Socket(siP, sPort);
 			while (true) {
-				inputStream = new ObjectInputStream(socket.getInputStream());
 				pictrue = (Pictrue) inputStream.readObject();
 
 				arrayOutputStream = new ByteArrayOutputStream();

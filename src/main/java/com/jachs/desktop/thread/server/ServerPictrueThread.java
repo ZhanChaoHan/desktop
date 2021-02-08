@@ -3,7 +3,6 @@ package com.jachs.desktop.thread.server;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
 
 import javax.imageio.ImageIO;
 
@@ -15,28 +14,26 @@ import com.jachs.desktop.thread.BaseThread;
  * 
  */
 public class ServerPictrueThread extends BaseThread implements Runnable {
-    private int webSocketPort;
+	private ObjectOutputStream objectOutputStream;
 
-    public ServerPictrueThread ( int webSocketPort ) {
-        super ();
-        this.webSocketPort = webSocketPort;
-    }
 
-    public void run () {
+    public ServerPictrueThread(ObjectOutputStream objectOutputStream) {
+		super();
+		this.objectOutputStream = objectOutputStream;
+	}
+
+
+	public void run () {
         try {
-            serverSocket = new ServerSocket ( webSocketPort );
-            socket = serverSocket.accept ();
             BufferedImage image;
             ByteArrayOutputStream arrayOutputStream;
             Pictrue pictrue;
-            ObjectOutputStream objectOutputStream;
             while ( true ) {
                 image = robot.createScreenCapture ( screenRectangle );
                 arrayOutputStream = new ByteArrayOutputStream ();
                 ImageIO.write ( image, "jpg", arrayOutputStream );
 
                 pictrue = new Pictrue ( arrayOutputStream.size (), arrayOutputStream.toByteArray () );
-                objectOutputStream = new ObjectOutputStream ( socket.getOutputStream () );
                 objectOutputStream.writeObject ( pictrue );
                 Thread.sleep ( 100 );
             }

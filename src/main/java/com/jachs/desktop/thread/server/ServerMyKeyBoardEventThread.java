@@ -1,4 +1,4 @@
-package com.jachs.desktop.thread.server;
+epackage com.jachs.desktop.thread.server;
 
 import java.io.ObjectInputStream;
 

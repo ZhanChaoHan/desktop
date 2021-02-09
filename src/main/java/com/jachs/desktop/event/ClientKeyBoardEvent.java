@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import com.jachs.desktop.configer.StaticConfigure;
-import com.jachs.desktop.entity.ClientEvent;
+import com.jachs.desktop.entity.ClickEvent;
 import com.jachs.desktop.entity.Event;
 import com.jachs.desktop.entity.SendInfoType;
 
@@ -24,7 +24,7 @@ public class ClientKeyBoardEvent implements KeyListener{
 	//最后释放键盘事件，最后触发
 	public void keyReleased(KeyEvent e) {
 		System.out.println(e.getKeyChar()+"keyReleased");
-		Event keyBoardEvent=new ClientEvent(SendInfoType.KeyBoard,e.getKeyChar());
+		Event keyBoardEvent=new ClickEvent(SendInfoType.KeyBoard,e.getKeyChar());
 		try {
 			StaticConfigure.ClientKeyBoardEventOos.writeObject(keyBoardEvent);
 		} catch (IOException e1) {

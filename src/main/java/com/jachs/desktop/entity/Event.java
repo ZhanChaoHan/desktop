@@ -8,17 +8,24 @@ import java.io.Serializable;
  *
  */
 public abstract class Event implements Serializable{
-	private static final long serialVersionUID = 1L;
-	private SendInfoType sendInfoType;
-	private char key;
-	
-	
-	public Event(SendInfoType sendInfoType, char key) {
-		super();
-		this.sendInfoType = sendInfoType;
-		this.key = key;
-	}
-	
-	
+    private static final long serialVersionUID = 1L;
+    private SendInfoType sendInfoType;
+    
+    
+    public Event ( SendInfoType sendInfoType, char key ) {
+        super ();
+        this.sendInfoType = sendInfoType;
+    }
+
+
+    public SendInfoType getSendInfoType () {
+        return sendInfoType;
+    }
+
+
+    public void setSendInfoType ( SendInfoType sendInfoType ) {
+        this.sendInfoType = sendInfoType;
+    }
+ 
 	
 }

@@ -2,8 +2,11 @@ package com.jachs.desktop.event;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.io.IOException;
 
+import com.jachs.desktop.configer.StaticConfigure;
 import com.jachs.desktop.entity.MouseMotionEventEn;
+import com.jachs.desktop.entity.SendInfoType;
 
 /****
  * 
@@ -17,13 +20,14 @@ public class ClientMouseMotionEvent implements MouseMotionListener{
 	}
 	//鼠标移动事件
 	public void mouseMoved(MouseEvent e) {
-	    MouseMotionEventEn mouseEvent=new MouseMotionEventEn();
+	    MouseMotionEventEn mouseEvent=new MouseMotionEventEn(SendInfoType.ClientMouseMotion,e.getX (),e.getY ());
 	    
-	    System.out.println (  e.getPoint ().x );
-	    System.out.println (  e.getPoint ().y );
-	    System.out.println ( e.getX () );
-	    System.out.println ( e.getY () );
-	    System.out.println ( "--------------" );
+	    try {
+            StaticConfigure.ClientMouseMotionEventOos.writeObject ( mouseEvent );
+        }
+        catch ( IOException e1 ) {
+            e1.printStackTrace();
+        }
 //		System.out.println(e.getID()+"鼠标移动事件");
 	}
 

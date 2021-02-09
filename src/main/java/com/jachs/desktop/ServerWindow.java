@@ -69,7 +69,7 @@ public class ServerWindow implements InitPropertiesInterFace {
 		new Thread(new ServerPictrueThread(new ObjectOutputStream(PictrueSk.getOutputStream()))).start();
 		new Thread(new ServerMyKeyBoardEventThread(new ObjectInputStream(MyKeyBoardSk.getInputStream()))).start();
 		new Thread(new ServerMyMouseEventThread(new ObjectInputStream(MyMouseSk.getInputStream()))).start();
-		new Thread(new ServerMyMouseMotionEventThread(new ObjectInputStream(ServerMyMouseMotionSk.getInputStream())));
+		new Thread(new ServerMyMouseMotionEventThread(new ObjectInputStream(ServerMyMouseMotionSk.getInputStream()))).start();
 		
 	}
 

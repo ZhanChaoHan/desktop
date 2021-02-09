@@ -127,5 +127,4 @@ public class ClientWindow implements InitPropertiesInterFace {
         StaticConfigure.ClientMouseMotionEventOos=new ObjectOutputStream(ServerMyMouseMotionSk.getOutputStream());
         
     }
-
 }

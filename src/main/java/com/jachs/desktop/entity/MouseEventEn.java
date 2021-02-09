@@ -6,8 +6,9 @@ package com.jachs.desktop.entity;
  */
 public class MouseEventEn extends Event{
 
-    public MouseEventEn ( SendInfoType sendInfoType, char key ) {
-        super ( sendInfoType, key );
+    public MouseEventEn ( SendInfoType sendInfoType ) {
+        super ( sendInfoType );
     }
+
 
 }

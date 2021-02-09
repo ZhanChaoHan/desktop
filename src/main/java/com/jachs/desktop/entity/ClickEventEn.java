@@ -4,12 +4,15 @@ package com.jachs.desktop.entity;
  * @author zhanchaohan
  * 
  */
-public class ClickEvent extends Event{
+public class ClickEventEn extends Event{
     private char key;
     
-    public ClickEvent ( SendInfoType sendInfoType, char key ) {
-        super ( sendInfoType, key );
+    public ClickEventEn ( SendInfoType sendInfoType, char key ) {
+        super ( sendInfoType );
+        this.key = key;
     }
+
+
     public char getKey () {
         return key;
     }

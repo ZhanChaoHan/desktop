@@ -2,7 +2,6 @@ package com.jachs.desktop.event;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.ObjectOutputStream;
 
 /***
  * 重新MouseListener实现自己逻辑

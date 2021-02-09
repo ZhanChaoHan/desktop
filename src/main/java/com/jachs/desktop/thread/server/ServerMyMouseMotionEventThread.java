@@ -4,7 +4,7 @@ import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 
 import com.jachs.desktop.entity.Event;
-import com.jachs.desktop.entity.MouseMotionEvent;
+import com.jachs.desktop.entity.MouseMotionEventEn;
 import com.jachs.desktop.thread.BaseThread;
 
 /**
@@ -23,7 +23,7 @@ public class ServerMyMouseMotionEventThread extends BaseThread implements Runnab
 	public void run () {
         try {
 //        	Event event;
-//        	while((event=(MouseMotionEvent) objectInputStream.readObject())!=null) {
+//        	while((event=(MouseMotionEventEn) objectInputStream.readObject())!=null) {
 //        		System.out.println(event.sendInfoType.name ());
 //        	}
         }catch (Exception e) {

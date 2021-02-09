@@ -3,7 +3,7 @@ package com.jachs.desktop.thread.server;
 import java.io.ObjectInputStream;
 
 import com.jachs.desktop.entity.Event;
-import com.jachs.desktop.entity.MouseEvent;
+import com.jachs.desktop.entity.MouseEventEn;
 import com.jachs.desktop.thread.BaseThread;
 
 /**
@@ -20,8 +20,8 @@ public class ServerMyMouseEventThread extends BaseThread implements Runnable {
 
 	public void run () {
         try {
-//            MouseEvent event;
-//        	while((event=(MouseEvent) objectInputStream.readObject())!=null) {
+//            MouseEventEn event;
+//        	while((event=(MouseEventEn) objectInputStream.readObject())!=null) {
 //        		System.out.println(event.sendInfoType.name ());
 //        	}
         }catch (Exception e) {

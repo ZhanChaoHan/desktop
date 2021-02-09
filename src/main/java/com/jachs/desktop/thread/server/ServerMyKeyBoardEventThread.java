@@ -2,7 +2,7 @@ package com.jachs.desktop.thread.server;
 
 import java.io.ObjectInputStream;
 
-import com.jachs.desktop.entity.ClickEvent;
+import com.jachs.desktop.entity.ClickEventEn;
 import com.jachs.desktop.thread.BaseThread;
 
 /**
@@ -19,8 +19,8 @@ public class ServerMyKeyBoardEventThread extends BaseThread implements Runnable 
 
 	public void run () {
         try {
-            ClickEvent event;
-        	while((event=(ClickEvent) objectInputStream.readObject())!=null) {
+            ClickEventEn event;
+        	while((event=(ClickEventEn) objectInputStream.readObject())!=null) {
         		System.out.println(event.getKey ());
         	}
         }catch (Exception e) {

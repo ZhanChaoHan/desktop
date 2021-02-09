@@ -12,7 +12,7 @@ public abstract class Event implements Serializable{
     private SendInfoType sendInfoType;
     
     
-    public Event ( SendInfoType sendInfoType, char key ) {
+    public Event ( SendInfoType sendInfoType) {
         super ();
         this.sendInfoType = sendInfoType;
     }

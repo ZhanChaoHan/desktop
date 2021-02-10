@@ -21,6 +21,8 @@ public class ServerMyKeyBoardEventThread extends BaseThread implements Runnable 
         try {
             ClickEventEn event;
         	while((event=(ClickEventEn) objectInputStream.readObject())!=null) {
+        	    this.robot.keyPress ( event.getKey () );
+        	    this.robot.keyRelease ( event.getKey () );
         		System.out.println(event.getKey ());
         	}
         }catch (Exception e) {

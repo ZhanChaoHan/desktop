@@ -4,27 +4,21 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import org.apache.commons.io.IOUtils;
 
 import com.jachs.desktop.configer.InitPropertiesInterFace;
 import com.jachs.desktop.configer.StaticConfigure;
-import com.jachs.desktop.entity.ManEntity;
 import com.jachs.desktop.entity.po.ClientPo;
 import com.jachs.desktop.event.ClientKeyBoardEvent;
 import com.jachs.desktop.event.ClientMouseEvent;
@@ -37,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 /****
  * 客戶展示端
  * 
- * @author Jachs
+ * @author zhanchaohan
  *
  */
 @Slf4j

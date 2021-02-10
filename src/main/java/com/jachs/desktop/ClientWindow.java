@@ -98,7 +98,7 @@ public class ClientWindow implements InitPropertiesInterFace {
         } );
         f.addMouseListener ( new ClientMouseEvent () );// 添加鼠标事件监听
         f.addKeyListener ( new ClientKeyBoardEvent () );// 添加键盘事件监听
-        f.addMouseMotionListener ( new ClientMouseMotionEvent () );// 添加鼠标移动拖动事件监听
+//        f.addMouseMotionListener ( new ClientMouseMotionEvent () );// 添加鼠标移动拖动事件监听
         log.info ( "客户端事件监听以加载" );
         
         f.setTitle ( "抓取桌面" );// 添加标题

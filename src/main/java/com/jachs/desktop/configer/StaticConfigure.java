@@ -12,6 +12,8 @@ import com.jachs.desktop.entity.ManEntity;
  *
  */
 public class StaticConfigure {
+    //客户端是否保存图片生成视频流
+    public static boolean WRITERVIDERO=false;
     //客戶端窗口圖片素材地址
     public static final String CLIENTIMAGEPATH = new File ( "" ).getAbsolutePath () + File.separator + "image"
             + File.separator;

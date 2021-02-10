@@ -38,13 +38,14 @@ public class ClientWriterPictrueThread implements Runnable {
 			}
 			while (true) {
 				pictrue = (Pictrue) inputStream.readObject();
-
+				
 				arrayOutputStream = new ByteArrayOutputStream();
 				arrayOutputStream.write(pictrue.getData(), 0, pictrue.getSize());
-
-				outputStream = new FileOutputStream(new File(StaticConfigure.CLIENTIMAGEPATH+File.separator+ new Date().getTime() + ".jpg"));
-				outputStream.write(arrayOutputStream.toByteArray());
-				outputStream.close();
+				if(StaticConfigure.WRITERVIDERO) {
+    				outputStream = new FileOutputStream(new File(StaticConfigure.CLIENTIMAGEPATH+File.separator+ new Date().getTime() + ".jpg"));
+    				outputStream.write(arrayOutputStream.toByteArray());
+    				outputStream.close();
+				}
 				ClientWindow.img = new ImageIcon(arrayOutputStream.toByteArray());
 
 				ClientWindow.imgLabel.setIcon(ClientWindow.img);

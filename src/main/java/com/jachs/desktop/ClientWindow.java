@@ -64,7 +64,8 @@ public class ClientWindow implements InitPropertiesInterFace {
         cp.setWidth ( Integer.parseInt ( pro.getProperty ( "client.window.width" ) ) );
         cp.setX ( Integer.parseInt ( pro.getProperty ( "clent.init.position.x" ) ) );
         cp.setY ( Integer.parseInt ( pro.getProperty ( "clent.init.position.y" ) ) );
-
+        
+        StaticConfigure.WRITERVIDERO=Boolean.parseBoolean ( pro.getProperty ( "client.writer.video" ) );
     }
 
     public void start () throws Exception {

@@ -22,11 +22,12 @@ public class ServerMyMouseEventThread extends BaseThread implements Runnable {
         try {
             MouseEventEn event;
         	while((event=(MouseEventEn) objectInputStream.readObject())!=null) {
-        	   if(event.getButton ()==InputEvent.BUTTON1_MASK) {//单击
+        	    System.out.println ( event.getButton () );
+        	   if(event.getButton ()==1) {//单击
         	       robot.mousePress(InputEvent.BUTTON1_MASK);
                    robot.mouseRelease(InputEvent.BUTTON1_MASK);
         	   }
-        	   if(event.getButton ()==InputEvent.BUTTON3_MASK) {//反击
+        	   if(event.getButton ()==3) {//反击
         	       robot.mousePress(InputEvent.BUTTON3_MASK);
                    robot.mouseRelease(InputEvent.BUTTON3_MASK);
         	   }

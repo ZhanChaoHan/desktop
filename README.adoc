@@ -36,3 +36,7 @@ not yet
 
 == Samples
 看test测试
+
+== Contributors
+* ZhanChaoHan
+* lyrieek
